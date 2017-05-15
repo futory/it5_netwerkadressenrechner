@@ -66,34 +66,34 @@ public class IPv4SubnetMask {
 
         private int[] subnetMask;
 
-        public IPv4SubnetMask.Builder maxHosts(long maxHosts){
+        public IPv4SubnetMask.Builder maxHosts(long maxHosts) {
             this.maxHosts = maxHosts;
             return this;
         }
 
-        public IPv4SubnetMask.Builder prefix(int prefix){
+        public IPv4SubnetMask.Builder prefix(int prefix) {
             this.prefix = prefix;
             return this;
         }
 
-        public IPv4SubnetMask.Builder subnetMask(int[] subnetMask){
+        public IPv4SubnetMask.Builder subnetMask(int[] subnetMask) {
             this.subnetMask = subnetMask;
             return this;
         }
 
-        public IPv4SubnetMask build(){
+        public IPv4SubnetMask build() {
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByPrefix(int prefix){
+        public IPv4SubnetMask buildByPrefix(int prefix) {
 
-            if(SubnetUtils.isValidPrefix(prefix))
+            if (SubnetUtils.isValidPrefix(prefix))
                 this.prefix = prefix;
             else
                 throw new SubnetBuildingError("A false prefix was detected: " + prefix);
 
             subnetMask = SubnetUtils.calcMaskByPrefix(prefix);
-            if(!SubnetUtils.isValidSubnetMask(subnetMask))
+            if (!SubnetUtils.isValidSubnetMask(subnetMask))
                 throw new SubnetBuildingError("A false subnet mask was detected: " + subnetMask.toString());
 
             this.maxHosts = SubnetUtils.calcMaxHosts(prefix);
@@ -101,14 +101,14 @@ public class IPv4SubnetMask {
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByString(String string){
+        public IPv4SubnetMask buildByString(String string) {
 
             return this.buildByArray(Stream.of(string.split("\\.")).mapToInt(Integer::parseInt).toArray());
         }
 
-        public IPv4SubnetMask buildByArray(int[] mask){
+        public IPv4SubnetMask buildByArray(int[] mask) {
             this.subnetMask = mask;
-            if(!SubnetUtils.isValidSubnetMask(subnetMask))
+            if (!SubnetUtils.isValidSubnetMask(subnetMask))
                 throw new SubnetBuildingError("A false subnet mask was detected: " + subnetMask.toString());
 
             this.prefix = SubnetUtils.calcPrefixByMask(this.subnetMask);

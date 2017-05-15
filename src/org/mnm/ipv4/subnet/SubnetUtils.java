@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 /**
  * Created by martin on 04/05/17.
- *
+ * <p>
  * A helper class able to validate various elements of a subnet, like a host/broadcast ip, subnet mask, or a net id
  */
 public class SubnetUtils {
@@ -41,15 +41,15 @@ public class SubnetUtils {
     }
 
     public static int calcPrefixByMask(int[] subnetMask) {
-        if(Arrays.stream(subnetMask).allMatch(i -> i == 0))
+        if (Arrays.stream(subnetMask).allMatch(i -> i == 0))
             return 0;
 
         int prefix = 0;
 
-        for(int i : subnetMask){
-            if(i == 255)
+        for (int i : subnetMask) {
+            if (i == 255)
                 prefix += 8;
-            else if(i != 0){
+            else if (i != 0) {
                 prefix += choose(i);
             }
         }
@@ -57,28 +57,28 @@ public class SubnetUtils {
     }
 
     public static long calcMaxHosts(int prefix) {
-        if(prefix == 32)
+        if (prefix == 32)
             return 0;
-        return (long) Math.pow(2, 32-prefix) -2;
+        return (long) Math.pow(2, 32 - prefix) - 2;
     }
 
-    public static int[] calcMaskByPrefix(int prefix){
+    public static int[] calcMaskByPrefix(int prefix) {
         if (prefix > 32)
             throw new FalsePrefixExeption();
 
-        int[] temp = {0,0,0,0};
+        int[] temp = {0, 0, 0, 0};
         int mod = prefix % 8; //2^this = last part
         int part = prefix / 8; //the amount of 255 in the subnet
-        IntStream.range(0,part).forEach(i -> temp[i] = 255);
-        if(mod != 0){
-            for(int i = 1; i <= mod; i++)
-                temp[part] += (int) Math.pow(2, 8-i);
+        IntStream.range(0, part).forEach(i -> temp[i] = 255);
+        if (mod != 0) {
+            for (int i = 1; i <= mod; i++)
+                temp[part] += (int) Math.pow(2, 8 - i);
         }
         return temp;
     }
 
     private static int choose(int i) {
-        switch (i){
+        switch (i) {
             case (128):
                 return 1;
             case (192):
@@ -95,8 +95,8 @@ public class SubnetUtils {
                 return 7;
             default:
                 return -1;
+        }
     }
-}
 
     /**
      * broadcast = (id | (~mask & 255)) & 255
@@ -104,7 +104,7 @@ public class SubnetUtils {
      * the subnetMask networkID have to be set
      *
      * @param mask the subnet mask to calculate the broadcast for
-     * @param id the network id
+     * @param id   the network id
      * @return int[] the broadcast address
      */
     public static IPv4BroadcastAddress calcBroadcast(IPv4SubnetMask mask, IPv4NetworkID id) {
@@ -155,12 +155,12 @@ public class SubnetUtils {
     /**
      * helper method to get the index of a array element by a predicate. Only the first hit is returned
      *
-     * @param ip the ip to get the element index from
+     * @param ip   the ip to get the element index from
      * @param pred the predicate to check
      * @return int the index of the first element matching the predicate
      */
-    private static int getIndex(int[]ip, IntPredicate pred){
-        return   IntStream.range(0, 4)
+    private static int getIndex(int[] ip, IntPredicate pred) {
+        return IntStream.range(0, 4)
                 .filter(pred)
                 .mapToObj(i -> i)
                 .findFirst()
@@ -170,12 +170,13 @@ public class SubnetUtils {
     /**
      * netID = (ip & mask) & 255
      * checks if a network id is valid
+     *
      * @param ip the ip in question
      * @return true if the valid net id of the subnet, else false
      */
-    public static boolean isValidNetID(int[] ip, IPv4SubnetMask mask){
+    public static boolean isValidNetID(int[] ip, IPv4SubnetMask mask) {
         boolean valid = false;
-        if(isValidIP(ip)){
+        if (isValidIP(ip)) {
             valid = ip[3] < 253;
         }
 
@@ -188,8 +189,8 @@ public class SubnetUtils {
      * netID = (ip & mask) & 255
      * checks if a ip is the networkID of the given subnet mask
      *
-     * @param ip     int[] the ip address to check
-     * @param mask   a subnet mask to check the id against
+     * @param ip   int[] the ip address to check
+     * @param mask a subnet mask to check the id against
      * @return true if the ip is the networkID, false if not
      */
     public static boolean isNetID(int[] ip, IPv4SubnetMask mask) {
@@ -203,10 +204,10 @@ public class SubnetUtils {
      * @param mask the subnetMask in question
      * @return true if it is a valid subnetMask, false if not
      */
-    public static boolean isValidSubnetMask(int[]mask){
+    public static boolean isValidSubnetMask(int[] mask) {
         String binaryMask = toBinaryString(mask).replaceAll("\\.", "");
         int index = binaryMask.indexOf("0");
-        if(index != -1)
+        if (index != -1)
             return !binaryMask.substring(index).contains("1");
         else
             return true;
@@ -218,7 +219,7 @@ public class SubnetUtils {
      * @param array to turn into binary representation
      * @return String array as binary representation, delimited with comma
      */
-    public static String toBinaryString(int[] array){
+    public static String toBinaryString(int[] array) {
         return Arrays.stream(array)
                 .mapToObj(i -> Integer.toBinaryString(i))
                 .collect(Collectors.joining("."));
@@ -269,13 +270,13 @@ public class SubnetUtils {
     }
 
     public static int calcPrefixByHosts(long hosts) {
-        if(hosts == 0)
+        if (hosts == 0)
             return 32;
         long tempHosts = 0;
         int prefix;
-        for(prefix = 0; prefix < 33; prefix++){
+        for (prefix = 0; prefix < 33; prefix++) {
             tempHosts = (long) Math.pow(2, prefix);
-            if(tempHosts >= hosts)
+            if (tempHosts >= hosts)
                 return 32 - prefix;
         }
         return -1;

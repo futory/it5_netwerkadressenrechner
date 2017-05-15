@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * Created by martin on 08/04/17.
  */
-public abstract class IPv4Address {
+public abstract class IPv4Address{
 
     private int[] ipv4Address;
 
@@ -17,7 +17,7 @@ public abstract class IPv4Address {
     }
 
     public void setIpv4Address(int[] ipv4Address) {
-        if(SubnetUtils.isValidIP(ipv4Address)){
+        if (SubnetUtils.isValidIP(ipv4Address)) {
             this.ipv4Address = ipv4Address;
         }
     }

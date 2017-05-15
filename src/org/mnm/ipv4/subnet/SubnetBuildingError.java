@@ -5,11 +5,11 @@ package org.mnm.ipv4.subnet;
  */
 public class SubnetBuildingError extends RuntimeException {
 
-    public SubnetBuildingError(String message){
+    public SubnetBuildingError(String message) {
         super(message);
     }
 
-    public SubnetBuildingError(){
+    public SubnetBuildingError() {
         super("An error happened during the creation of the subnet");
     }
 }

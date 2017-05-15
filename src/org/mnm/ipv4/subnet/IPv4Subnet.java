@@ -20,7 +20,8 @@ public class IPv4Subnet {
 
     private String name;
 
-    public IPv4Subnet() {}
+    public IPv4Subnet() {
+    }
 
     public IPv4Subnet addHost(IPv4HostAddress address) {
         this.addressList.add(address);
@@ -55,12 +56,14 @@ public class IPv4Subnet {
         return this;
     }
 
-    public IPv4Subnet setName(String name){
+    public String getName() {
+        return this.name;
+    }
+
+    public IPv4Subnet setName(String name) {
         this.name = name;
         return this;
     }
-
-    public String getName(){return this.name;}
 
     public void print() {
         System.out.println(subnetMask.getClass().toString() + ": " + subnetMask.toString());
