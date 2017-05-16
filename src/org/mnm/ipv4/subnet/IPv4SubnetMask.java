@@ -1,5 +1,7 @@
 package org.mnm.ipv4.subnet;
 
+import it5.p04.fileadapter.Types;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,6 +10,8 @@ import java.util.stream.Stream;
  * Created by martin on 08/04/17.
  */
 public class IPv4SubnetMask {
+
+    private Types type = Types.MASK;
 
     public static final long MAXIMUM_AMOUNT_OF_HOSTS = 4294967294L;
 
@@ -56,6 +60,10 @@ public class IPv4SubnetMask {
 
     public void setPrefix(int prefix) {
         this.prefix = prefix;
+    }
+
+    public Types getType(){
+        return type;
     }
 
     public static class Builder {

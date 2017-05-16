@@ -65,6 +65,7 @@ public class IPv4Subnet {
         return this;
     }
 
+
     public void print() {
         System.out.println(subnetMask.getClass().toString() + ": " + subnetMask.toString());
         addressList.stream()
@@ -82,8 +83,9 @@ public class IPv4Subnet {
         return addressList;
     }
 
-    public void setAddressList(List<IPv4Address> addressList) {
+    public IPv4Subnet setAddressList(List<IPv4Address> addressList) {
         this.addressList = addressList;
+        return this;
     }
 
     public IPv4SubnetMask getSubnetMask() {
