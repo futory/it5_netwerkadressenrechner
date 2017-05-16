@@ -42,10 +42,6 @@ class FileParserTest {
 
     @Test
     void parse(){
-
-
-
-
         assertEquals(subnet.getAddressList().size(), parsedSubnet.getAddressList().size());
     }
 
