@@ -1,6 +1,6 @@
 package org.mnm.ipv4.ipv4;
 
-import it5.p04.fileadapter.Types;
+import it5.p04.fileadapter.Type;
 import org.mnm.ipv4.subnet.SubnetUtils;
 
 import java.util.stream.Stream;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  */
 public class IPv4BroadcastAddress extends IPv4Address {
 
-    private Types type = Types.BROADCAST;
+    private Type type = Type.BROADCAST;
 
     public IPv4BroadcastAddress(int[] ipv4Address) {
         super();
@@ -23,7 +23,7 @@ public class IPv4BroadcastAddress extends IPv4Address {
         super.setIpv4Address(Stream.of(ipv4Address.split("\\.")).mapToInt(Integer::parseInt).toArray());
     }
 
-    public Types getType(){
+    public Type getType(){
         return type;
     }
 }

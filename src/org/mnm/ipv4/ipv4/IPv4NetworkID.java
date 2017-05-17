@@ -1,6 +1,6 @@
 package org.mnm.ipv4.ipv4;
 
-import it5.p04.fileadapter.Types;
+import it5.p04.fileadapter.Type;
 
 import java.util.stream.Stream;
 
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  */
 public class IPv4NetworkID extends IPv4Address {
 
-    private Types type = Types.NETID;
+    private Type type = Type.NETID;
 
     public IPv4NetworkID(int[] ipv4Address) {
         this.setIpv4Address(ipv4Address);
@@ -19,7 +19,7 @@ public class IPv4NetworkID extends IPv4Address {
         this.setIpv4Address(Stream.of(ipv4Address.split("\\.")).mapToInt(Integer::parseInt).toArray());
     }
 
-    public Types getType(){
+    public Type getType(){
         return type;
     }
 }

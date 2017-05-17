@@ -1,6 +1,6 @@
 package org.mnm.ipv4.ipv4;
 
-import it5.p04.fileadapter.Types;
+import it5.p04.fileadapter.Type;
 import org.mnm.ipv4.subnet.SubnetUtils;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public abstract class IPv4Address{
 
     private int[] ipv4Address;
 
-    private Types type;
+    private Type type;
 
     public int[] getIpv4Address() {
         return ipv4Address;
@@ -38,7 +38,7 @@ public abstract class IPv4Address{
                 .collect(Collectors.joining("."));
     }
 
-    public Types getType(){
+    public Type getType(){
         return this.type;
     }
 }

@@ -30,8 +30,8 @@ public class FileWriter {
     }
 
     public void write() throws Exception {
-        add(String.valueOf(Types.NAME), subnet.getName());
-        add(String.valueOf(Types.MASK), subnet.getSubnetMask().toString());
+        add(String.valueOf(Type.NAME), subnet.getName());
+        add(String.valueOf(Type.MASK), subnet.getSubnetMask().toString());
         subnet.getAddressList().stream()
                 .forEach(l -> add(String.valueOf(l.getType()), l.toString()));
 
