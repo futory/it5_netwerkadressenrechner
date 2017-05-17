@@ -1,7 +1,10 @@
-package test.org.mnm.ipv4.subnet;
+package org.mnm.ipv4.subnet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by martin on 09/05/17.

@@ -36,8 +36,21 @@ public class SubnetUtils {
      * @param subnet the subnet in question
      * @return true if the ip is the broadcast of the subnet, false if not
      */
-    public static boolean isBroadcast(int[] ip, IPv4Subnet subnet) {
+    public static boolean isValidBroadcast(int[] ip, IPv4Subnet subnet) {
         return Arrays.equals(subnet.getBroadcast().getIpv4Address(), ip);
+    }
+
+    /**
+     * broadcast = (id | (~mask & 255)) & 255
+     * checks if the given ip is the broadcast address of the given subnet
+     *
+     * @param ip     the ip in question
+     * @param mask   the subnetmask of the subnet in question
+     * @return true if the ip is the broadcast of the subnet, false if not
+     */
+    public static boolean isBroadcast(int[] ip, IPv4SubnetMask mask){
+        int[]negMask = negateAll(mask.getSubnetMask());
+        return Arrays.equals(ip, orAll(negMask, ip));
     }
 
     public static int calcPrefixByMask(int[] subnetMask) {
@@ -148,6 +161,9 @@ public class SubnetUtils {
      * and false, if it is not
      */
     public static boolean isValidIP(int[] ip) {
+        if(ip.length > 4)
+            return false;
+
         return Arrays.stream(ip)
                 .allMatch(validIP);
     }
@@ -168,7 +184,7 @@ public class SubnetUtils {
     }
 
     /**
-     * netID = (ip & mask) & 255
+     * netID = (id & mask) & 255
      * checks if a network id is valid
      *
      * @param ip the ip in question
@@ -205,6 +221,9 @@ public class SubnetUtils {
      * @return true if it is a valid subnetMask, false if not
      */
     public static boolean isValidSubnetMask(int[] mask) {
+        if(!isValidIP(mask))
+            return false;
+
         String binaryMask = toBinaryString(mask).replaceAll("\\.", "");
         int index = binaryMask.indexOf("0");
         if (index != -1)
@@ -231,7 +250,7 @@ public class SubnetUtils {
      * @param array the array to negate its values
      * @return int[] a new array that has the negated values the input array
      */
-    private static int[] negateAll(int[] array) {
+    public static int[] negateAll(int[] array) {
         return Arrays.stream(array)
                 .map(i -> NEGATE.apply(i))
                 .toArray();
@@ -245,7 +264,7 @@ public class SubnetUtils {
      * @param arr2 array two to be bitwise ored
      * @return int[] new array with the result of the bitwise or of all values
      */
-    private static int[] orAll(int[] arr1, int[] arr2) {
+    public static int[] orAll(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
         IntStream.range(0, ARRAY_LENGTH)
                 .forEach(i -> res[i] = OR.applyAsInt(arr1[i], arr2[i]));
@@ -261,7 +280,7 @@ public class SubnetUtils {
      * @param arr2 array two to be bitwise anded
      * @return int[] new array with the result of the bitwise and of all values
      */
-    private static int[] andALL(int[] arr1, int[] arr2) {
+    public static int[] andALL(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
         IntStream.range(0, ARRAY_LENGTH)
                 .forEach(i -> res[i] = AND.applyAsInt(arr1[i], arr2[i]));
@@ -275,7 +294,7 @@ public class SubnetUtils {
         long tempHosts = 0;
         int prefix;
         for (prefix = 0; prefix < 33; prefix++) {
-            tempHosts = (long) Math.pow(2, prefix);
+            tempHosts = (long) Math.pow(2, prefix)-2;
             if (tempHosts >= hosts)
                 return 32 - prefix;
         }

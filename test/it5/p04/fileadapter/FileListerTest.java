@@ -21,8 +21,8 @@ class FileListerTest {
     void listFileNames() {
         FileLister lister = new FileLister();
         List<Path> files = lister.listFileNames();
-        for(Path s : files)
-            System.out.println(s.getFileName());
+
+        files.contains("TestFile16052017101858.txt");
     }
 
 }

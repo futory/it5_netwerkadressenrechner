@@ -1,9 +1,7 @@
-package test.org.mnm.ipv4.subnet;
+package org.mnm.ipv4.subnet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mnm.ipv4.subnet.IPv4Subnet;
-import org.mnm.ipv4.subnet.IPv4SubnetMask;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -105,25 +103,25 @@ class SubnetBuilderTest {
         assertArrayEquals(new int[]{128,0,0,0}, hsubnet1.getSubnetMask().getSubnetMask());
         assertArrayEquals(new int[]{255,255,255,255}, hsubnet1.getBroadcast().getIpv4Address());
 
-        assertArrayEquals(new int[]{128,0,0,0}, hsubnet2.getNetID().getIpv4Address());
-        assertArrayEquals(new int[]{192,0,0,0}, hsubnet2.getSubnetMask().getSubnetMask());
-        assertArrayEquals(new int[]{191,255,255,255}, hsubnet2.getBroadcast().getIpv4Address());
+        assertArrayEquals(new int[]{192,168,0,0}, hsubnet2.getNetID().getIpv4Address());
+        assertArrayEquals(new int[]{255,255,255,252}, hsubnet2.getSubnetMask().getSubnetMask());
+        assertArrayEquals(new int[]{192,168,0,3}, hsubnet2.getBroadcast().getIpv4Address());
 
         assertArrayEquals(new int[]{192,168,0,0}, hsubnet23.getNetID().getIpv4Address());
-        assertArrayEquals(new int[]{255,255,254,0}, hsubnet23.getSubnetMask().getSubnetMask());
-        assertArrayEquals(new int[]{192,168,1,255}, hsubnet23.getBroadcast().getIpv4Address());
+        assertArrayEquals(new int[]{255,255,255,0}, hsubnet23.getSubnetMask().getSubnetMask());
+        assertArrayEquals(new int[]{192,168,0,255}, hsubnet23.getBroadcast().getIpv4Address());
 
-        assertArrayEquals(new int[]{192,0,0,0}, hsubnet24.getNetID().getIpv4Address());
-        assertArrayEquals(new int[]{0,0,0,0}, hsubnet24.getSubnetMask().getSubnetMask());
-        assertArrayEquals(new int[]{255,255,255,255}, hsubnet24.getBroadcast().getIpv4Address());
+        assertArrayEquals(new int[]{192,168,0,0}, hsubnet24.getNetID().getIpv4Address());
+        assertArrayEquals(new int[]{255,255,255,0}, hsubnet24.getSubnetMask().getSubnetMask());
+        assertArrayEquals(new int[]{192,168,0,255}, hsubnet24.getBroadcast().getIpv4Address());
 
         assertArrayEquals(new int[]{192,168,0,0}, hsubnet25.getNetID().getIpv4Address());
-        assertArrayEquals(new int[]{255,255,255,128}, hsubnet25.getSubnetMask().getSubnetMask());
-        assertArrayEquals(new int[]{192,168,0,127}, hsubnet25.getBroadcast().getIpv4Address());
+        assertArrayEquals(new int[]{255,255,255,0}, hsubnet25.getSubnetMask().getSubnetMask());
+        assertArrayEquals(new int[]{192,168,0,255}, hsubnet25.getBroadcast().getIpv4Address());
 
         assertArrayEquals(new int[]{192,168,0,0}, hsubnet32.getNetID().getIpv4Address());
         assertArrayEquals(new int[]{255,255,255,255}, hsubnet32.getSubnetMask().getSubnetMask());
-        assertArrayEquals(new int[]{255,255,255,255}, hsubnet32.getBroadcast().getIpv4Address());
+        assertArrayEquals(new int[]{192,168,0,0}, hsubnet32.getBroadcast().getIpv4Address());
 
     }
 }

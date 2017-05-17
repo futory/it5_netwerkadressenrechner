@@ -149,16 +149,20 @@ public class IPv4Subnet {
 
             this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
 
-            return new IPv4Subnet(this);
+            return build();
         }
 
         public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts){
-            this.networkID = new IPv4NetworkID(netID);
             this.subnetMask = new IPv4SubnetMask.Builder()
                     .buildByPrefix(SubnetUtils.calcPrefixByHosts(hosts));
-            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
+            if(SubnetUtils.isNetID(netID, subnetMask))
+                this.networkID = new IPv4NetworkID(netID);
 
-            return new IPv4Subnet(this);
+            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
+            if(!SubnetUtils.isBroadcast(broadcastAddress.getIpv4Address(), subnetMask))
+                throw new SubnetBuildingError("A false broadcastAddress was detected: " + broadcastAddress);
+
+            return build();
         }
     }
 }

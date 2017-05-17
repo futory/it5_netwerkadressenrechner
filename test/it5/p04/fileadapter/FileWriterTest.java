@@ -7,8 +7,12 @@ import org.mnm.ipv4.ipv4.IPv4NetworkID;
 import org.mnm.ipv4.subnet.IPv4Subnet;
 import org.mnm.ipv4.subnet.IPv4SubnetMask;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by martin on 16/05/17.
@@ -32,6 +36,7 @@ class FileWriterTest {
 
     @org.junit.jupiter.api.Test
     void write() throws Exception {
+        String date = new java.text.SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date());
         FileWriter writer = new FileWriter("TestFile", subnet);
         writer.write();
     }

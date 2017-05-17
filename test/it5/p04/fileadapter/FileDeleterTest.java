@@ -1,6 +1,10 @@
 package it5.p04.fileadapter;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,10 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by martin on 16/05/17.
  */
 class FileDeleterTest {
+    @BeforeEach
+    void setUP() throws IOException {
+        File f = new File("resources/out/test.txt");
+        f.createNewFile();
+    }
+
     @Test
     void delete() {
         FileDeleter deleter = new FileDeleter();
-        deleter.delete("TestFile16052017101858.txt");
+        deleter.delete("test.txt");
     }
 
 }
