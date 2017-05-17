@@ -1,7 +1,7 @@
 package org.mnm.ipv4.ipv4;
 
 import it5.p04.fileadapter.Type;
-import org.mnm.ipv4.subnet.SubnetUtils;
+import org.mnm.ipv4.subnet.ipv4SubnetUtils;
 
 import java.util.stream.Stream;
 
@@ -18,7 +18,7 @@ public class IPv4HostAddress extends IPv4Address {
 
     public IPv4HostAddress(String ipv4Address) {
         this.setIpv4Address(Stream.of(ipv4Address.split("\\.")).mapToInt(Integer::parseInt).toArray());
-        if (!SubnetUtils.isValidIP(this.getIpv4Address()))
+        if (!ipv4SubnetUtils.isValidIP(this.getIpv4Address()))
             throw new FalseIPExeption();
     }
 

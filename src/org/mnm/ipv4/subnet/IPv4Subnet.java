@@ -144,22 +144,22 @@ public class IPv4Subnet {
 
             this.subnetMask = new IPv4SubnetMask.Builder().buildByPrefix(Integer.parseInt(temp[1]));
 
-            if (!SubnetUtils.isValidNetID(id, subnetMask))
+            if (!ipv4SubnetUtils.isValidNetID(id, subnetMask))
                 throw new SubnetBuildingError("An invalid netID was detected: " + this.networkID.toString());
 
-            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
+            this.broadcastAddress = ipv4SubnetUtils.calcBroadcast(subnetMask, networkID);
 
             return build();
         }
 
         public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts){
             this.subnetMask = new IPv4SubnetMask.Builder()
-                    .buildByPrefix(SubnetUtils.calcPrefixByHosts(hosts));
-            if(SubnetUtils.isNetID(netID, subnetMask))
+                    .buildByPrefix(ipv4SubnetUtils.calcPrefixByHosts(hosts));
+            if(ipv4SubnetUtils.isNetID(netID, subnetMask))
                 this.networkID = new IPv4NetworkID(netID);
 
-            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
-            if(!SubnetUtils.isBroadcast(broadcastAddress.getIpv4Address(), subnetMask))
+            this.broadcastAddress = ipv4SubnetUtils.calcBroadcast(subnetMask, networkID);
+            if(!ipv4SubnetUtils.isBroadcast(broadcastAddress.getIpv4Address(), subnetMask))
                 throw new SubnetBuildingError("A false broadcastAddress was detected: " + broadcastAddress);
 
             return build();

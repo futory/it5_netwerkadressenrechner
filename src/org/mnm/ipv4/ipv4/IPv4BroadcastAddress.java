@@ -1,7 +1,7 @@
 package org.mnm.ipv4.ipv4;
 
 import it5.p04.fileadapter.Type;
-import org.mnm.ipv4.subnet.SubnetUtils;
+import org.mnm.ipv4.subnet.ipv4SubnetUtils;
 
 import java.util.stream.Stream;
 
@@ -14,7 +14,7 @@ public class IPv4BroadcastAddress extends IPv4Address {
 
     public IPv4BroadcastAddress(int[] ipv4Address) {
         super();
-        if (SubnetUtils.isValidIP(ipv4Address))
+        if (ipv4SubnetUtils.isValidIP(ipv4Address))
             super.setIpv4Address(ipv4Address);
     }
 

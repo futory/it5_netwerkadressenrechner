@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  * <p>
  * A helper class able to validate various elements of a subnet, like a host/broadcast ip, subnet mask, or a net id
  */
-public class SubnetUtils {
+public class ipv4SubnetUtils {
 
     private static final int ARRAY_LENGTH = 4;
     private static final int MOD = 255;
