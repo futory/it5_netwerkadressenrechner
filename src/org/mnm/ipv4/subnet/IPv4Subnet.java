@@ -7,6 +7,7 @@ import org.mnm.ipv4.ipv4.IPv4NetworkID;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by martin on 04/05/17.
@@ -21,6 +22,13 @@ public class IPv4Subnet {
     private String name;
 
     public IPv4Subnet() {
+    }
+
+    public IPv4Subnet(IPv4Subnet.Builder builder) {
+        this.name = builder.name;
+        this.subnetMask = builder.subnetMask;
+        this.broadcastAddress = builder.broadcastAddress;
+        this.networkID = builder.networkID;
     }
 
     public IPv4Subnet addHost(IPv4HostAddress address) {
@@ -95,5 +103,62 @@ public class IPv4Subnet {
     public IPv4Subnet setSubnetMask(IPv4SubnetMask subnetMask) {
         this.subnetMask = subnetMask;
         return this;
+    }
+
+    public static class Builder {
+
+        private IPv4SubnetMask subnetMask;
+        private IPv4BroadcastAddress broadcastAddress;
+        private IPv4NetworkID networkID;
+        private String name;
+
+        public IPv4Subnet.Builder subnetMask(IPv4SubnetMask subnetMask) {
+            this.subnetMask = subnetMask;
+            return this;
+        }
+
+        public IPv4Subnet.Builder name(String name){
+            this.name = name;
+            return this;
+        }
+
+        public IPv4Subnet.Builder broadcastAddress(IPv4BroadcastAddress address) {
+            this.broadcastAddress = address;
+            return this;
+        }
+
+        public IPv4Subnet.Builder networkID(IPv4NetworkID address) {
+            this.networkID = address;
+            return this;
+        }
+
+        public IPv4Subnet build(){
+            return new IPv4Subnet(this);
+        }
+
+        public IPv4Subnet buildByName(String name) {
+            String temp[] = name.split("/");
+            int[] id = Stream.of(temp[0].split("\\.")).mapToInt(Integer::parseInt).toArray();
+
+            this.networkID = new IPv4NetworkID(id);
+
+            this.subnetMask = new IPv4SubnetMask.Builder().buildByPrefix(Integer.parseInt(temp[1]));
+
+            if (!SubnetUtils.isValidNetID(id, subnetMask))
+                throw new SubnetBuildingError("An invalid netID was detected: " + this.networkID.toString());
+
+            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
+
+            return new IPv4Subnet(this);
+        }
+
+        public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts){
+            this.networkID = new IPv4NetworkID(netID);
+            this.subnetMask = new IPv4SubnetMask.Builder()
+                    .buildByPrefix(SubnetUtils.calcPrefixByHosts(hosts));
+            this.broadcastAddress = SubnetUtils.calcBroadcast(subnetMask, networkID);
+
+            return new IPv4Subnet(this);
+        }
     }
 }
