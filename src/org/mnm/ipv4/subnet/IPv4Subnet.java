@@ -4,6 +4,7 @@ import org.mnm.ipv4.ipv4.IPv4Address;
 import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
 import org.mnm.ipv4.ipv4.IPv4HostAddress;
 import org.mnm.ipv4.ipv4.IPv4NetworkID;
+import org.mnm.ipv6.ipv6.IPv6HostAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,17 @@ public class IPv4Subnet {
         this.networkID = builder.networkID;
     }
 
-    public IPv4Subnet addHost(IPv4HostAddress address) {
-        this.addressList.add(address);
+    public IPv4Subnet addHost(IPv4HostAddress address) throws SubnetBuildingError {
+        if(ipv4SubnetUtils.isHost(address.getIpv4Address(), this))
+            this.addressList.add(address);
+        else
+            throw new SubnetBuildingError("Invalid host address: " + address);
+
+        return this;
+    }
+
+    public IPv4Subnet removeHost(IPv6HostAddress address){
+        addressList.remove(address);
         return this;
     }
 
@@ -136,13 +146,17 @@ public class IPv4Subnet {
             return new IPv4Subnet(this);
         }
 
-        public IPv4Subnet buildByName(String name) {
+        public IPv4Subnet buildByName(String name) throws SubnetBuildingError {
             String temp[] = name.split("/");
             int[] id = Stream.of(temp[0].split("\\.")).mapToInt(Integer::parseInt).toArray();
 
             this.networkID = new IPv4NetworkID(id);
 
-            this.subnetMask = new IPv4SubnetMask.Builder().buildByPrefix(Integer.parseInt(temp[1]));
+            try {
+                this.subnetMask = new IPv4SubnetMask.Builder().buildByPrefix(Integer.parseInt(temp[1]));
+            } catch (FalsePrefixExeption falsePrefixExeption) {
+                falsePrefixExeption.printStackTrace();
+            }
 
             if (!ipv4SubnetUtils.isValidNetID(id, subnetMask))
                 throw new SubnetBuildingError("An invalid netID was detected: " + this.networkID.toString());
@@ -152,9 +166,14 @@ public class IPv4Subnet {
             return build();
         }
 
-        public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts){
-            this.subnetMask = new IPv4SubnetMask.Builder()
-                    .buildByPrefix(ipv4SubnetUtils.calcPrefixByHosts(hosts));
+        public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts) throws SubnetBuildingError {
+
+            try {
+                this.subnetMask = new IPv4SubnetMask.Builder()
+                        .buildByPrefix(ipv4SubnetUtils.calcPrefixByHosts(hosts));
+            } catch (FalsePrefixExeption falsePrefixExeption) {
+                falsePrefixExeption.printStackTrace();
+            }
             if(ipv4SubnetUtils.isNetID(netID, subnetMask))
                 this.networkID = new IPv4NetworkID(netID);
 

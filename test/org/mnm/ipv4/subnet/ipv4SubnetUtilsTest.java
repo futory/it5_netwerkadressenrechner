@@ -71,13 +71,21 @@ class ipv4SubnetUtilsTest {
                     invalidBroadcasts.add(new IPv4BroadcastAddress(h.getIpv4Address()));
                 });
 
-        //building a subnet with subnet mask, net ID and hosts
-        mask = new IPv4SubnetMask.Builder().buildByPrefix(24);
 
-        subnet = new IPv4Subnet.Builder().buildByName("192.168.0.0/24");
 
         validHosts.stream()
-                .forEach(a -> subnet.addHost(a));
+                .forEach(a -> {
+                    try {
+                        //building a subnet with subnet mask, net ID and hosts
+                        mask = new IPv4SubnetMask.Builder().buildByPrefix(24);
+                        subnet = new IPv4Subnet.Builder().buildByName("192.168.0.0/24");
+                        subnet.addHost(a);
+                    } catch (SubnetBuildingError subnetBuildingError) {
+                        subnetBuildingError.printStackTrace();
+                    } catch (FalsePrefixExeption falsePrefixExeption) {
+                        falsePrefixExeption.printStackTrace();
+                    }
+                });
 
         //adding all invalid hosts with the exeption of the net ID and broadcast
         invalidHosts.stream()
@@ -91,7 +99,7 @@ class ipv4SubnetUtilsTest {
     }
 
     @Test
-    void isBroadcast() {
+    void isBroadcast() throws SubnetBuildingError, FalsePrefixExeption {
         assertTrue(ipv4SubnetUtils.isBroadcast(
                 new int[]{192,168,0,255},
                 new IPv4SubnetMask.Builder().buildByPrefix(24)));
@@ -210,7 +218,7 @@ class ipv4SubnetUtilsTest {
     }
 
     @Test
-    void calcMaxHosts() {
+    void calcMaxHosts() throws FalsePrefixExeption {
         assertEquals(IPv4SubnetMask.MAXIMUM_AMOUNT_OF_HOSTS, ipv4SubnetUtils.calcMaxHosts(0));
         assertEquals(2, ipv4SubnetUtils.calcMaxHosts(30));
         assertEquals(6, ipv4SubnetUtils.calcMaxHosts(29));
@@ -222,7 +230,7 @@ class ipv4SubnetUtilsTest {
     }
 
     @Test
-    void calcMaskByPrefix() {
+    void calcMaskByPrefix() throws FalsePrefixExeption {
         assertArrayEquals(new int[]{255,255,255,0}, ipv4SubnetUtils.calcMaskByPrefix(24));
         assertArrayEquals(new int[]{255,255,254,0}, ipv4SubnetUtils.calcMaskByPrefix(23));
         assertArrayEquals(new int[]{255,255,255,128}, ipv4SubnetUtils.calcMaskByPrefix(25));

@@ -3,7 +3,7 @@ package org.mnm.ipv4.subnet;
 /**
  * Created by martin on 11/04/17.
  */
-public class FalsePrefixExeption extends RuntimeException {
+public class FalsePrefixExeption extends Exception {
 
     public FalsePrefixExeption() {
         super("An invalid Prefix was detected.");

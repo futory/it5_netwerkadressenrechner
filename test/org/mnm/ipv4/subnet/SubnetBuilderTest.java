@@ -27,11 +27,15 @@ class SubnetBuilderTest {
 
     @BeforeEach
     public void setUp(){
-        setUpByName();
-        setUpByAmountOfHosts();
+        try {
+            setUpByName();
+            setUpByAmountOfHosts();
+        } catch (SubnetBuildingError subnetBuildingError) {
+            subnetBuildingError.printStackTrace();
+        }
     }
 
-    private void setUpByAmountOfHosts() {
+    private void setUpByAmountOfHosts() throws SubnetBuildingError {
 
         hsubnet24 = new IPv4Subnet.Builder()
                 .buildByAmountOfHosts(new int[]{192,168,0,0}, 160);
@@ -49,7 +53,7 @@ class SubnetBuilderTest {
                 .buildByAmountOfHosts(new int[]{192,168,0,0}, 1);
     }
 
-    private void setUpByName() {
+    private void setUpByName() throws SubnetBuildingError {
         subnet24 = new IPv4Subnet.Builder()
                 .buildByName("192.168.0.0/24");
         subnet25 = new IPv4Subnet.Builder()

@@ -4,6 +4,7 @@ import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
 import org.mnm.ipv4.ipv4.IPv4HostAddress;
 import org.mnm.ipv4.ipv4.IPv4NetworkID;
 import org.mnm.ipv4.subnet.IPv4Subnet;
+import org.mnm.ipv4.subnet.SubnetBuildingError;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,7 +48,11 @@ public class FileParser {
                 .setNetworkID(networkID);
         List<String> hosts = getByType(Type.HOST);
         for(String s : hosts)
-            subnet.addHost(new IPv4HostAddress(s));
+            try {
+                subnet.addHost(new IPv4HostAddress(s));
+            } catch (SubnetBuildingError subnetBuildingError) {
+                subnetBuildingError.printStackTrace();
+            }
         return subnet;
     }
 

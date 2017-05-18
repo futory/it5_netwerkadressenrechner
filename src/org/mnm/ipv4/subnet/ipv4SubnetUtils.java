@@ -21,7 +21,6 @@ public class ipv4SubnetUtils {
     private static final int MOD = 255;
 
     private static final IntFunction<Integer> NEGATE = i -> ~i & MOD;
-
     private static final IntBinaryOperator OR = (i, j) -> (i | j) & MOD;
     private static final IntBinaryOperator AND = (i, j) -> (i & j) & MOD;
 
@@ -69,14 +68,28 @@ public class ipv4SubnetUtils {
         return prefix;
     }
 
-    public static long calcMaxHosts(int prefix) {
+    /**
+     * method to calculate the maximum amount of hosts of a subnet by a given prefix
+     * @param prefix prefix of a subnet
+     * @return long maximum amount of hosts of that prefix
+     */
+    public static long calcMaxHosts(int prefix) throws FalsePrefixExeption {
+        if(!isValidPrefix(prefix))
+            throw new FalsePrefixExeption("A false prefix was detected: " + prefix);
+
         if (prefix == 32)
             return 0;
         return (long) Math.pow(2, 32 - prefix) - 2;
     }
 
-    public static int[] calcMaskByPrefix(int prefix) {
-        if (prefix > 32)
+    /**
+     * calculated a subnetmask by a given prefix
+     *
+     * @param prefix the prefix to calculate the mask by
+     * @return IPv4SubnetMask
+     */
+    public static int[] calcMaskByPrefix(int prefix) throws FalsePrefixExeption {
+        if (!isValidPrefix(prefix))
             throw new FalsePrefixExeption();
 
         int[] temp = {0, 0, 0, 0};
@@ -90,6 +103,11 @@ public class ipv4SubnetUtils {
         return temp;
     }
 
+    /**
+     * method to choose a subnet mask part by an integer
+     * @param i int part of the prefix
+     * @return one of 8 values, -1 if nothing was found
+     */
     private static int choose(int i) {
         switch (i) {
             case (128):

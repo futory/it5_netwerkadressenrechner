@@ -28,11 +28,17 @@ class SubnetMaskBuilderTest {
 
     @BeforeEach
     void setUp() {
-        setUpPrefix();
-        setUpName();
+        try {
+            setUpPrefix();
+            setUpName();
+        } catch (SubnetBuildingError subnetBuildingError) {
+            subnetBuildingError.printStackTrace();
+        } catch (FalsePrefixExeption falsePrefixExeption) {
+            falsePrefixExeption.printStackTrace();
+        }
     }
 
-    private void setUpName() {
+    private void setUpName() throws SubnetBuildingError, FalsePrefixExeption {
         ssubnetMask24 = new IPv4SubnetMask.Builder()
                 .buildByString("255.255.255.0");
         ssubnetMask25 = new IPv4SubnetMask.Builder()
@@ -47,7 +53,7 @@ class SubnetMaskBuilderTest {
                 .buildByString("128.0.0.0");
     }
 
-    private void setUpPrefix(){
+    private void setUpPrefix() throws SubnetBuildingError, FalsePrefixExeption {
         psubnetMask24 = new IPv4SubnetMask.Builder()
                 .buildByPrefix(24);
         psubnetMask25 = new IPv4SubnetMask.Builder()

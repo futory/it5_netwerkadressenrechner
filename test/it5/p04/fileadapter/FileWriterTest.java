@@ -4,8 +4,10 @@ import org.mnm.ipv4.ipv4.IPv4Address;
 import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
 import org.mnm.ipv4.ipv4.IPv4HostAddress;
 import org.mnm.ipv4.ipv4.IPv4NetworkID;
+import org.mnm.ipv4.subnet.FalsePrefixExeption;
 import org.mnm.ipv4.subnet.IPv4Subnet;
 import org.mnm.ipv4.subnet.IPv4SubnetMask;
+import org.mnm.ipv4.subnet.SubnetBuildingError;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,7 +23,7 @@ class FileWriterTest {
     IPv4Subnet subnet;
 
     @org.junit.jupiter.api.BeforeEach
-    void setUp() {
+    void setUp() throws SubnetBuildingError, FalsePrefixExeption {
         subnet = new IPv4Subnet();
         List<IPv4Address> addressList = new ArrayList<>();
         for(int i = 1; i < 255; i++)

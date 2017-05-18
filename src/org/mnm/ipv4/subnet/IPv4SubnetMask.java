@@ -93,7 +93,7 @@ public class IPv4SubnetMask {
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByPrefix(int prefix) {
+        public IPv4SubnetMask buildByPrefix(int prefix) throws SubnetBuildingError, FalsePrefixExeption {
 
             if (ipv4SubnetUtils.isValidPrefix(prefix))
                 this.prefix = prefix;
@@ -109,12 +109,12 @@ public class IPv4SubnetMask {
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByString(String string) {
+        public IPv4SubnetMask buildByString(String string) throws SubnetBuildingError, FalsePrefixExeption {
 
             return this.buildByArray(Stream.of(string.split("\\.")).mapToInt(Integer::parseInt).toArray());
         }
 
-        public IPv4SubnetMask buildByArray(int[] mask) {
+        public IPv4SubnetMask buildByArray(int[] mask) throws SubnetBuildingError, FalsePrefixExeption {
             this.subnetMask = mask;
             if (!ipv4SubnetUtils.isValidSubnetMask(subnetMask))
                 throw new SubnetBuildingError("A false subnet mask was detected: " + subnetMask.toString());
