@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ipv6SubnetUtilsTest {
 
     List<String> ipv6 = new ArrayList<>();
+    List<String> invalidipv6 = new ArrayList<>();
 
     /*
 private String ip11 = "[2001:0000:4136:e378:8000:63bf:3fff:fdd2]:5060", 1 },
@@ -45,18 +46,54 @@ private String ip11 = "2001:0000:4136:e378:8000:63bf:3fff:fdd2:5060", 0 },
         ipv6.add("ff01:0:0:0:0:0:0:2");
         ipv6.add("[fe80::200:5aee:feaa:20a2]");
         ipv6.add("[2001::1]");
-        ipv6.add("fe80::200::abcd");
+
+
+        invalidipv6.add("2001:0db8:1234:5678:00aa:aaaa:aaaa:aaaa:aaaa");
+        invalidipv6.add("fffff:0db8:1234:5678:00aa:aaaa:aaaa:aaaa");
+        invalidipv6.add("2001::1234:5678:00aa::aaaa");
+        invalidipv6.add("fe80::200::abcd");
+        invalidipv6.add("ffff:0lb8:1234:5678:00aa:aaaa:aaaa:aaaa");
+        invalidipv6.add("::");  // therotically valid, but determines, that a host does not have an address, thus
+                                // not practical for our case
+        invalidipv6.add("127.0.0.1");
     }
 
     @Test
     void isValidIP() {
         ipv6.stream()
                 .forEach(i -> assertTrue(ipv6SubnetUtils.isValidIP(i)));
+
+        invalidipv6.stream()
+                .forEach(i -> assertFalse(ipv6SubnetUtils.isValidIP(i)));
     }
 
     @Test
     void resolveIP() {
-        fail("Not yet implemented");
+
+        assertArrayEquals(
+                new int[]{8193, 3512, 4660, 22136, 170, 43690, 43690, 43690},
+                ipv6SubnetUtils.resolveIP("2001:0db8:1234:5678:00aa:aaaa:aaaa:aaaa")
+        );
+
+        assertArrayEquals(
+                new int[]{8193, 3512, 4660, 0, 0, 0, 43690, 43690},
+                ipv6SubnetUtils.resolveIP("2001:0db8:1234::aaaa:aaaa")
+        );
+
+        assertArrayEquals(
+                new int[]{8193, 3512, 4660, 0, 0, 0, 0, 0},
+                ipv6SubnetUtils.resolveIP("2001:0db8:1234::")
+        );
+
+        assertArrayEquals(
+                new int[]{0, 0, 0, 0, 0, 0, 43690, 43690},
+                ipv6SubnetUtils.resolveIP("::aaaa:aaaa")
+        );
+
+        assertArrayEquals(
+                new int[]{8193, 3512, 0, 0, 0, 0, 0, 43690},
+                ipv6SubnetUtils.resolveIP("2001:0db8::aaaa")
+        );
     }
 
     @Test
