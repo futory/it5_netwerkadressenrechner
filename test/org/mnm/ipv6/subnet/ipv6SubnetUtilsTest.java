@@ -1,8 +1,11 @@
 package org.mnm.ipv6.subnet;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.omg.CORBA.DynAnyPackage.Invalid;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,29 +14,44 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class ipv6SubnetUtilsTest {
 
-    private String ip1 = "2001:0db8:1234:5678:00aa:aaaa:aaaa:aaaa";
-    private String ip2 = "2001:0db8:0000:1234:0056:78aa:aaaa:aaaa";
-    private String ip3 = "2001:0db8:0000:0012:0034:5678:aaaa:aaaa";
-    private String ip4 = "2001:0db8:0000:0000:0012:3456:78aa:aaaa";
-    private String ip5 = "2001:0db8:0000:0000:0000:0000:1234:5678";
-    private String ip6 = "2001:0db8:0000:0000:0000:0000:18.52.86.120";  // kann das pattern noch nicht
-    private String ip7 = "0064:ff9b:0000:0000::0000:0000:18.52.86.120";  // kann das pattern noch nicht
-    private String ip8 = "0064:ff9b::1234:5678";
-    private String ip9 = "0064:ff9b::1234:5678";
-    private String ip10 = "64:ff9b::1234:5678";
+    List<String> ipv6 = new ArrayList<>();
+
+    /*
+private String ip11 = "[2001:0000:4136:e378:8000:63bf:3fff:fdd2]:5060", 1 },
+private String ip11 = "2001:0000:4136:e378:8000:63bf:3fff:fdd2:5060", 0 },
+*/
+
+
+    @BeforeEach
+    void setUp() {
+        ipv6.add("2001:0db8:1234:5678:00aa:aaaa:aaaa:aaaa");
+        ipv6.add("2001:0db8:0000:1234:0056:78aa:aaaa:aaaa");
+        ipv6.add("2001:0db8:0000:0012:0034:5678:aaaa:aaaa");
+        ipv6.add("2001:0db8:0000:0000:0012:3456:78aa:aaaa");
+        ipv6.add("2001:0db8:0000:0000:0000:0000:1234:5678");
+        ipv6.add("2001:0db8:0000:0000:0000:0000:18.52.86.120");
+        ipv6.add("0064:ff9b:0000:0000::0000:0000:18.52.86.120");
+        ipv6.add("0064:ff9b::1234:5678");
+        ipv6.add("64:ff9b::1234:5678");
+        ipv6.add("fdf8:f53b:82e4::53");
+        ipv6.add("fe80::200:5aee:feaa:20a2");
+        ipv6.add("2001::1");
+        ipv6.add("2001:0000:4136:e378:8000:63bf:3fff:fdd2");
+        ipv6.add("2001:0002:6c::430");
+        ipv6.add("2001:10:240:ab::a");
+        ipv6.add("2002:cb0a:3cdd:1::1");
+        ipv6.add("2001:db8:8:4::2");
+        ipv6.add("ff01:0:0:0:0:0:0:2");
+        ipv6.add("ff01:0:0:0:0:0:0:2");
+        ipv6.add("[fe80::200:5aee:feaa:20a2]");
+        ipv6.add("[2001::1]");
+        ipv6.add("fe80::200::abcd");
+    }
 
     @Test
     void isValidIP() {
-        assertTrue(ipv6SubnetUtils.isValidIP(ip1));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip2));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip3));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip4));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip5));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip6)); //pattern cannot deal with that
-        assertTrue(ipv6SubnetUtils.isValidIP(ip7)); //pattern cannot deal with that
-        assertTrue(ipv6SubnetUtils.isValidIP(ip8));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip9));
-        assertTrue(ipv6SubnetUtils.isValidIP(ip10));
+        ipv6.stream()
+                .forEach(i -> assertTrue(ipv6SubnetUtils.isValidIP(i)));
     }
 
     @Test
