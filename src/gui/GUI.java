@@ -51,11 +51,10 @@ public class GUI extends JFrame implements ActionListener{
     }
 
     private void setPanels() {
-        displayPanel.setBorder(BorderFactory.createLineBorder(lightBlue));
+        displayPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
         buttonPanel.setLayout(new FlowLayout());
-        buttonPanel.setBorder(BorderFactory.createLineBorder(lightBlue));
-        buttonPanel.setBorder(BorderFactory.createLineBorder(lightBlue));
+        buttonPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
         buttonPanel.setBackground(Color.WHITE);
         westPanel.setBackground(Color.WHITE);
