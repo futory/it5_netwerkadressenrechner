@@ -1,5 +1,8 @@
 package org.mnm.ipv6.subnet;
 
+import org.mnm.ipv4.subnet.ipv4SubnetUtils;
+
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -13,6 +16,8 @@ public class ipv6SubnetUtils {
     // by Niklas Krahl, he is a god
     // contains one error, does not detect, if more than one "::" is present
     public static final String IPV_6_PATTERN = "(\\[?([0-9a-f]{1,4}\\:\\:?){1,7})([0-9a-f]{1,4}\\]?)?(([0-9]\\.|1[0-9][0-9]\\.|2[0-4][0-9]\\.|25[0-5]\\.|[0-9][0-9]\\.){1,3}[0-9][0-9]?[0-9]?\\]?)?";
+    public static final String containsIPv4 = "^\\[?[A-Fa-f0-9:]{0,30}[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}\\.[0-9]{0,3}\\[?";
+    //public static final String containsIPv4 = "^\\[?([A-Fa-f0-9:]{1,5}){1,6}([0-9\\.]{0,4}){0,4}\\]?";
 
     /**
      * Mathod that validates an ipv6 as a String
@@ -55,13 +60,54 @@ public class ipv6SubnetUtils {
      * @return the ipv6 String as int[]
      */
     public static int[] resolveIP(String ipv6Address) {
-        int[] ip;
-        if(ipv6Address.contains("::"))
-            ip = complexResolving(ipv6Address);
+        if(containsIpv4(ipv6Address))
+            return withIPv4Part(ipv6Address);
         else
-            ip = simpleResolving(ipv6Address);
+            return withoutIPv4Part(ipv6Address);
+    }
 
+    public static boolean containsIpv4(String ipv6Address) {
+        Pattern p = Pattern.compile(containsIPv4);
+        return p.matcher(ipv6Address).matches();
+    }
+
+    private static int[] withIPv4Part(String ipv6Address) {
+        if(ipv6Address.contains("::"))
+            return complexResolvingWithIPv4(ipv6Address);
+        else
+            return simpleResolvingWithIPv4(ipv6Address);
+    }
+
+    private static int[] simpleResolvingWithIPv4(String ipv6Address) {
+        String [] array = ipv6Address.split(":");
+        int[] ip = {0,0,0,0,0,0,0,0};
+        for(int i = 0; i < array.length-2; i = i+2){
+            ip[i] = Integer.parseInt(array[i]);
+        }
+        return fillIPv4Part(ip, array[array.length-1]);
+    }
+
+    private static int[] fillIPv4Part(int[] ip, String ipv4) {
+        String[] array = (String[]) Arrays.stream(ipv4.split("."))
+                                            .mapToInt(Integer::parseInt)
+                                            .mapToObj(i -> Integer.toHexString(i))
+                                            .toArray();
+
+
+        ip[6] = Integer.parseInt(array[0] + array[1]);
+        ip[7] = Integer.parseInt(array[2] + array[3]);
         return ip;
+    }
+
+    private static int[] complexResolvingWithIPv4(String ipv6Address) {
+        return null;
+    }
+
+    private static int [] withoutIPv4Part(String ipv6Address){
+        if(ipv6Address.contains("::"))
+            return complexResolving(ipv6Address);
+        else
+            return simpleResolving(ipv6Address);
     }
 
     /**
