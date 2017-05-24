@@ -2,21 +2,21 @@ package gui;
 
 import org.mnm.ipv4.subnet.ipv4SubnetUtils;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.function.Predicate;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ * JPanel that is held by the JTabbedPane of the SubnetFrame
+ * the idea is to reuse it when one wants to create a Subnet in a subnet
+ */
 @SuppressWarnings("serial")
 public class SubnetPanel extends JPanel {
+
+    private JScrollPane scrollPane;
 
     private JTextField txtNetworkID;
     private JTextField txtSubnetMask;
@@ -29,6 +29,9 @@ public class SubnetPanel extends JPanel {
     private JPanel panel_1;
     private JPanel panel;
     private JPanel panel_5;
+    private JPanel hostPanel;
+    private JPanel hostPanelRootPane;
+    private JPanel hostPanelButtonPane;
 
     private JPanel scrollPaneViewPortPane;
     private JPanel hostPanelScrollPaneAncor;
@@ -37,22 +40,30 @@ public class SubnetPanel extends JPanel {
     private SubnetFrame subnetFrame;
 
     private JButton btnNext;
+    private JButton btnCreate;
+    private JButton btnAddHost;
 
     private String name = "", subnetMask = "", netID = "";
 
+    private Color textColor = new Color(51,153,255);
+
+    /**
+     * constructor creating the frame
+     * @param mainFrame
+     * @param subnetFrame
+     */
     public SubnetPanel(MainFrame mainFrame, SubnetFrame subnetFrame) {
-        setBorder(new LineBorder(new Color(0, 0, 0)));
+        this.setBorder(new LineBorder(new Color(0, 0, 0)));
         this.mainFrame = mainFrame;
         this.subnetFrame = subnetFrame;
-        Color textColor = new Color(51,153,255);
-        setSize(new Dimension(300, 400));
-        setBackground(Color.WHITE);
-        setLayout(null);
+        this.setSize(new Dimension(300, 400));
+        this.setBackground(Color.WHITE);
+        this.setLayout(null);
 
         panel_4 = new JPanel();
         panel_4.setBackground(Color.WHITE);
         panel_4.setBounds(5, 5, 285, 329);
-        add(panel_4);
+        this.add(panel_4);
         panel_4.setLayout(null);
 
         panel_3 = new JPanel();
@@ -62,7 +73,7 @@ public class SubnetPanel extends JPanel {
 
         panel_1 = new JPanel();
         panel_3.add(panel_1, BorderLayout.CENTER);
-        panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Subnet Name", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        panel_1.setBorder(createTitledBorder("Subnet Name"));
         panel_1.setBackground(Color.WHITE);
         panel_1.setLayout(new BorderLayout(0, 0));
 
@@ -76,7 +87,7 @@ public class SubnetPanel extends JPanel {
         panel_2.setBounds(0, 52, 285, 41);
         panel_4.add(panel_2);
         panel_2.setBackground(Color.WHITE);
-        panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Network ID", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        panel_2.setBorder(createTitledBorder("Network ID"));
         panel_2.setLayout(new BorderLayout(0, 0));
 
         txtNetworkID = new JTextField();
@@ -86,7 +97,7 @@ public class SubnetPanel extends JPanel {
         panel = new JPanel();
         panel.setBounds(0, 104, 285, 41);
         panel_4.add(panel);
-        panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Subnet Mask", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        panel.setBorder(createTitledBorder("Subnet Mask"));
         panel.setBackground(Color.WHITE);
         panel.setLayout(new BorderLayout(0, 0));
 
@@ -99,7 +110,7 @@ public class SubnetPanel extends JPanel {
         add(panel_5);
         panel_5.setBackground(Color.WHITE);
 
-        JButton btnCreate = new JButton("Create");
+        btnCreate = new JButton("Create");
         btnCreate.setToolTipText("Create the Subnet");
         btnCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -119,21 +130,21 @@ public class SubnetPanel extends JPanel {
         });
         panel_5.add(btnNext);
 
-        JPanel hostPanel = new JPanel();
+        hostPanel = new JPanel();
         hostPanel.setBounds(0, 156, 285, 174);
         hostPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Host Addresses", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
         hostPanel.setBackground(Color.WHITE);
         hostPanel.setLayout(new BorderLayout(0, 0));
 
-        JPanel hostPanelRootPane = new JPanel(new BorderLayout());
+        hostPanelRootPane = new JPanel(new BorderLayout());
         hostPanel.add(hostPanelRootPane);
 
-        JPanel hostPanelButtonPane = new JPanel();
+        hostPanelButtonPane = new JPanel();
         hostPanelButtonPane.setBackground(Color.WHITE);
         hostPanelRootPane.add(hostPanelButtonPane, BorderLayout.NORTH);
         hostPanelButtonPane.setLayout(new BorderLayout(0, 0));
 
-        JButton btnAddHost = new JButton("");
+        btnAddHost = new JButton("");
         btnAddHost.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 scrollPaneViewPortPane.add(new HostLabel("192.168.0.0"));
@@ -152,7 +163,7 @@ public class SubnetPanel extends JPanel {
         hostPanelRootPane.add(hostPanelScrollPaneAncor, BorderLayout.CENTER);
         hostPanelScrollPaneAncor.setLayout(new BorderLayout(0, 0));
 
-        JScrollPane scrollPane = new JScrollPane();
+        scrollPane = new JScrollPane();
         hostPanelScrollPaneAncor.add(scrollPane,BorderLayout.CENTER);
 
         scrollPaneViewPortPane = new JPanel();
@@ -162,24 +173,38 @@ public class SubnetPanel extends JPanel {
         scrollPane.setViewportView(scrollPaneViewPortPane);
 
         panel_4.add(hostPanel);
-        setBackground(Color.WHITE);
+        this.setBackground(Color.WHITE);
     }
 
+    /**
+     * Method creating a default TitledBorder with the provided Title
+     * @param title
+     * @return
+     */
+    private TitledBorder createTitledBorder(String title) {
+        return new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+                title, TitledBorder.LEADING, TitledBorder.TOP, null, textColor);
+    }
+
+    /**
+     * sending the subnet specified in the JTextFields to the MainFrame.content_pane, after testing the params
+     * @return
+     */
     private boolean sendSubnet() {
-        transferFields();
+        this.transferFields();
         boolean testPassed = true;
         if(this.name.isEmpty()) {
-            updateTextArea(this.txtSubnetName);
+            this.updateTextArea(this.txtSubnetName);
             testPassed = false;
         }
 
         if(!ipv4SubnetUtils.isValidIP(this.netID)){
-            updateTextArea(this.txtNetworkID);
+            this.updateTextArea(this.txtNetworkID);
             testPassed = false;
         }
 
         if(!ipv4SubnetUtils.isValidSubnetMask(this.subnetMask)){
-            updateTextArea(this.txtSubnetMask);
+            this.updateTextArea(this.txtSubnetMask);
             testPassed = false;
         }
 
@@ -188,6 +213,10 @@ public class SubnetPanel extends JPanel {
         return testPassed;
     }
 
+    /**
+     * revalidating and repainting the specified JTextField
+     * @param jTextField
+     */
     private void updateTextArea(JTextField jTextField) {
         jTextField.setForeground(Color.RED);
         jTextField.setBorder(new LineBorder(Color.RED));
@@ -195,20 +224,29 @@ public class SubnetPanel extends JPanel {
         jTextField.repaint();
     }
 
+    /**
+     * getting the text from the JTextFields and storing them in variables
+     */
     private void transferFields() {
         this.name = this.txtSubnetName.getText();
         this.netID = this.txtNetworkID.getText();
         this.subnetMask = this.txtSubnetMask.getText();
     }
 
+    /**
+     * clearing the JTextFields
+     */
     private void clearFields() {
         this.txtSubnetName.setText("");
         this.txtSubnetMask.setText("");
         this.txtNetworkID.setText("");
         this.scrollPaneViewPortPane.removeAll();
-        repaintScrollPaneViewPortPane();
+        this.repaintScrollPaneViewPortPane();
     }
 
+    /**
+     * repainting and revalidating the scrollPaneViewPortPane
+     */
     private void repaintScrollPaneViewPortPane() {
         this.scrollPaneViewPortPane.revalidate();
         this.scrollPaneViewPortPane.repaint();
@@ -226,6 +264,9 @@ public class SubnetPanel extends JPanel {
         return this.netID;
     }
 
+    /**
+     * private class describing an ipv4 host address
+     */
     private class HostLabel extends JPanel{
         private String name;
         private JLabel nameLabel;

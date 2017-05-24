@@ -8,11 +8,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+/**
+ * SubnetFrame is a JFrame, that is used to create a new Subnet from TextFields, etc.
+ * Dispose on close action
+ */
 @SuppressWarnings("serial")
 public class SubnetFrame extends JFrame {
 
     private MainFrame mainFrame;
 
+    /**
+     * constructor creating the frame
+     * @param mainFrame
+     */
     public SubnetFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setTitle("Create Subnet");
@@ -33,6 +41,9 @@ public class SubnetFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * method used to dispose the frame on button presses
+     */
     public void closeFrame() {
         this.dispose();
     }

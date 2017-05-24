@@ -1,20 +1,16 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ * the main frame of the gui.
+ * has a JTabbedPane, that holds a JPanel, holding all the other Components
+ */
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame{
 
@@ -37,7 +33,7 @@ public class MainFrame extends JFrame{
         getContentPane().setLayout(new BorderLayout(5, 5));
 
         button_panel = new JPanel();
-        button_panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Buttons", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        button_panel.setBorder(createTitledBorder("Buttons"));
         button_panel.setBackground(Color.WHITE);
         getContentPane().add(button_panel, BorderLayout.SOUTH);
 
@@ -54,7 +50,7 @@ public class MainFrame extends JFrame{
 
         content_panel = new JPanel();
         content_panel.setBackground(Color.WHITE);
-        content_panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Subnets", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        content_panel.setBorder(createTitledBorder("Subnets"));
         content_panel.setLayout(new BoxLayout(content_panel, BoxLayout.Y_AXIS));
         getContentPane().add(content_panel, BorderLayout.CENTER);
 
@@ -66,7 +62,7 @@ public class MainFrame extends JFrame{
         getContentPane().add(panel_3, BorderLayout.EAST);
 
         panel_4 = new JPanel();
-        panel_4.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Tabs", TitledBorder.LEADING, TitledBorder.TOP, null, textColor));
+        panel_4.setBorder(createTitledBorder("Tabs"));
         panel_4.setBackground(Color.WHITE);
         getContentPane().add(panel_4, BorderLayout.NORTH);
         setForeground(Color.WHITE);
@@ -74,29 +70,59 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * create a new SubnetFrame
+     */
     private void initSubnetFrame() {
         SubnetFrame subnetFrame = new SubnetFrame(this);
     }
 
+    /**
+     * psvm, what else to say?
+     * @param args
+     */
     public static void main(String[] args) {
         MainFrame m = new MainFrame();
     }
 
+    /**
+     * add a subnet to the content_panel, created in the SubnetFrame JFrame
+     * @param sPanel
+     */
     public void addSubnet(SubnetPanel sPanel) {
         content_panel.add(new SubnetLabel(sPanel));
         refreshContentPanel();
     }
 
+    /**
+     * revalidating and repainting the content_panel
+     */
     private void refreshContentPanel() {
         content_panel.revalidate();
         content_panel.repaint();
     }
 
+    /**
+     * removing a child element of component_panel by object
+     * @param component
+     * @param subnetLabel
+     */
     private void destroyChild(JPanel component, SubnetLabel subnetLabel) {
         component.remove(subnetLabel);
         refreshContentPanel();
     }
 
+    /**
+     * creating a TitledBorder by the specified title
+     */
+    private TitledBorder createTitledBorder(String title) {
+        return new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+                title, TitledBorder.LEADING, TitledBorder.TOP, null, textColor);
+    }
+
+    /**
+     * private class holding a subnet in the content_panel
+     */
     private class SubnetLabel extends JPanel{
         private String name, subnetMask, netID;
         private JLabel nameLabel;
@@ -141,6 +167,10 @@ public class MainFrame extends JFrame{
             this.add(btnDelete);
         }
 
+        /**
+         * building the label from the JTextFields
+         * @return
+         */
         private JLabel buildLabel() {
             String label = "";
             if(!this.name.isEmpty())
@@ -154,6 +184,9 @@ public class MainFrame extends JFrame{
 
         public String getName(){ return this.name; }
 
+        /**
+         * destroying this SubnetLabel and removing it from the content_panel
+         */
         private void destroy() {
             destroyChild(content_panel,this);
         }
