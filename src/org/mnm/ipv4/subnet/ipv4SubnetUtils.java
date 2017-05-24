@@ -187,6 +187,19 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * checks if an ip is a valid one
+     *
+     * @param ip int[] the ip in question
+     * @return true if the ip is valid
+     * and false, if it is not
+     */
+    public static boolean isValidIP(String ip) {
+        return isValidIP(Arrays.stream(ip.split("\\."))
+                            .mapToInt(Integer::parseInt)
+                            .toArray());
+    }
+
+    /**
      * helper method to get the index of a array element by a predicate. Only the first hit is returned
      *
      * @param ip   the ip to get the element index from
@@ -248,6 +261,18 @@ public class ipv4SubnetUtils {
             return !binaryMask.substring(index).contains("1");
         else
             return true;
+    }
+
+    /**
+     * checks if a subnetMak is a valid one
+     *
+     * @param mask the subnetMask in question
+     * @return true if it is a valid subnetMask, false if not
+     */
+    public static boolean isValidSubnetMask(String mask) {
+        return isValidSubnetMask(Arrays.stream(mask.split("\\."))
+                                    .mapToInt(Integer::parseInt)
+                                    .toArray());
     }
 
     /**

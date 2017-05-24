@@ -1,32 +1,39 @@
 package gui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
-/**
- * Created by martin on 22/05/17.
- */
-public class SubnetFrame extends JFrame implements ActionListener{
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
-    private SubnetFrame(){
-        this.setTitle("Add Subnet");
-        this.setSize(400, 380);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
-        this.setBackground(Color.WHITE);
-        this.setLayout(new BorderLayout());
+@SuppressWarnings("serial")
+public class SubnetFrame extends JFrame {
+
+    private MainFrame mainFrame;
+
+    public SubnetFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        setTitle("Create Subnet");
+        setResizable(false);
+        setSize(new Dimension(300, 450));
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setLayout(new BorderLayout(0, 0));
+
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        getContentPane().add(tabbedPane);
+
+        JPanel panel_7 = new JPanel();
+        panel_7.setBackground(Color.WHITE);
+        tabbedPane.addTab("Subnet 1", null, panel_7, null);
+        panel_7.setLayout(null);
+        panel_7.add(new SubnetPanel(mainFrame, this));
+        setVisible(true);
     }
 
-    public static SubnetFrame getInstance(){
-        return new SubnetFrame();
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void closeFrame() {
+        this.dispose();
     }
 }
