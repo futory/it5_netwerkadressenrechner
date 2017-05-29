@@ -20,7 +20,7 @@ public class FileLister {
     /**
      * listing the files in the directory that is specified in the final path="resources/out/"
      *
-     * @return List<Path> listFileNames
+     * &#64;return List&lt;Path&gt; listFileNames
      */
     public List<Path> listFileNames(){
         List<Path> files = new ArrayList<>();

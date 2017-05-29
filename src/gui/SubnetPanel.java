@@ -10,8 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * &lt;pre&gt;
  * JPanel that is held by the JTabbedPane of the SubnetFrame
  * the idea is to reuse it when one wants to create a Subnet in a subnet
+ * &lt;/pre&gt;
  */
 @SuppressWarnings("serial")
 public class SubnetPanel extends JPanel {
@@ -47,9 +49,11 @@ public class SubnetPanel extends JPanel {
     private Color textColor = new Color(51,153,255);
 
     /**
+     * &lt;pre&gt;
      * constructor creating the frame
-     * @param mainFrame the mainFrame
-     * @param subnetFrame the subnetFrame
+     * &#64;param mainFrame the mainFrame
+     * &#64;param subnetFrame the subnetFrame
+     * &lt;/pre&gt;
      */
     public SubnetPanel(MainFrame mainFrame, SubnetFrame subnetFrame) {
         this.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -176,9 +180,11 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * Method creating a default TitledBorder with the provided Title
-     * @param title
-     * @return
+     * &#64;param title
+     * &#64;return TitledBorder
+     * &lt;/pre&gt;
      */
     private TitledBorder createTitledBorder(String title) {
         return new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
@@ -186,8 +192,10 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * sending the subnet specified in the JTextFields to the MainFrame.content_pane, after testing the params
-     * @return
+     * &#64;return boolean
+     * &lt;/pre&gt;
      */
     private boolean sendSubnet() {
         this.transferFields();
@@ -213,8 +221,10 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * revalidating and repainting the specified JTextField
-     * @param jTextField
+     * &#64;param jTextField
+     * &lt;/pre&gt;
      */
     private void updateTextArea(JTextField jTextField) {
         jTextField.setForeground(Color.RED);
@@ -224,6 +234,7 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * getting the text from the JTextFields and storing them in variables
      */
     private void transferFields() {
@@ -233,7 +244,9 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * clearing the JTextFields
+     * &lt;/pre&gt;
      */
     private void clearFields() {
         this.txtSubnetName.setText("");
@@ -244,7 +257,9 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * repainting and revalidating the scrollPaneViewPortPane
+     * &lt;/pre&gt;
      */
     private void repaintScrollPaneViewPortPane() {
         this.scrollPaneViewPortPane.revalidate();
@@ -264,7 +279,9 @@ public class SubnetPanel extends JPanel {
     }
 
     /**
+     * &lt;pre&gt;
      * private class describing an ipv4 host address
+     * &lt;/pre&gt;
      */
     private class HostLabel extends JPanel{
         private String name;

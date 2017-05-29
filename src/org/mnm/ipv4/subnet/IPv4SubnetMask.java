@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * &lt;pre&gt;
  * Programmatic representation of an Ipv4SubnetMask.
  *
  * Has an int[] = {0,0,0,0}
  *
  * Created by martin on 08/04/17.
+ * &lt;/pre&gt;
  */
 public class IPv4SubnetMask {
 
@@ -30,10 +32,12 @@ public class IPv4SubnetMask {
     }
 
     /**
-     * @Override
+     * &lt;pre&gt;
+     * &#64;Override
      *          toString
      *
-     * @return a dotted decimal notation ot the IPv4Address
+     * &#64;return a dotted decimal notation ot the IPv4Address
+     * &lt;/pre&gt;
      */
     @Override
     public String toString() {
@@ -43,10 +47,12 @@ public class IPv4SubnetMask {
     }
 
     /**
-     * @Override
+     * &lt;pre&gt;
+     * &#64;Override
      *          toString
      *
-     * @return a dotted binary notation ot the IPv4Address
+     * &#64;return a dotted binary notation ot the IPv4Address
+     * &lt;/pre&gt;
      */
     public String toBinaryString() {
         return Arrays.stream(subnetMask)
@@ -83,7 +89,9 @@ public class IPv4SubnetMask {
     }
 
     /**
+     * &lt;pre&gt;
      * private class capable of building a IPv4SubnetMask, either by prefix, array or by string
+     * &lt;/pre&gt;
      */
     public static class Builder {
 
@@ -109,20 +117,24 @@ public class IPv4SubnetMask {
         }
 
         /**
+         * &lt;pre&gt;
          * builds the IPv4SubnetMask
-         * @return IPv4SubnetMask
+         * &#64;return IPv4SubnetMask
+         * &lt;/pre&gt;
          */
         public IPv4SubnetMask build() {
             return new IPv4SubnetMask(this);
         }
 
         /**
+         * &lt;pre&gt;
          * builds an IPv4SubnetMask by its prefix with validation
          *
-         * @param prefix int, the prefix notation of the subnetMask
-         * @return IPv4SubnetMask
-         * @throws SubnetBuildingError
-         * @throws FalsePrefixExeption
+         * &#64;param prefix int, the prefix notation of the subnetMask
+         * &#64;return IPv4SubnetMask
+         * &#64;throws SubnetBuildingError
+         * &#64;throws FalsePrefixExeption
+         * &lt;/pre&gt;
          */
         public IPv4SubnetMask buildByPrefix(int prefix) throws SubnetBuildingError, FalsePrefixExeption {
 
@@ -141,12 +153,14 @@ public class IPv4SubnetMask {
         }
 
         /**
+         * &lt;pre&gt;
          * builds an IPv4SubnetMask by String ("255.255.255.0") with validation
          *
-         * @param string the String notation of the SubnetMask, is validated before building
-         * @return IPv4SubnetMask
-         * @throws SubnetBuildingError
-         * @throws FalsePrefixExeption
+         * &#64;param string the String notation of the SubnetMask, is validated before building
+         * &#64;return IPv4SubnetMask
+         * &#64;throws SubnetBuildingError
+         * &#64;throws FalsePrefixExeption
+         * &lt;/pre&gt;
          */
         public IPv4SubnetMask buildByString(String string) throws SubnetBuildingError, FalsePrefixExeption {
 
@@ -154,12 +168,14 @@ public class IPv4SubnetMask {
         }
 
         /**
+         * &lt;pre&gt;
          * builds an IPv4SubnetMask by int array with validation
          *
-         * @param mask int[], the subnetMask to be build
-         * @return IPv4SubnetMask
-         * @throws SubnetBuildingError
-         * @throws FalsePrefixExeption
+         * &#64;param mask int[], the subnetMask to be build
+         * &#64;return IPv4SubnetMask
+         * &#64;throws SubnetBuildingError
+         * &#64;throws FalsePrefixExeption
+         * &lt;/pre&gt;
          */
         public IPv4SubnetMask buildByArray(int[] mask) throws SubnetBuildingError, FalsePrefixExeption {
             this.subnetMask = mask;

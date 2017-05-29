@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * reading a subnet file. format is:
- * <p>
+ * &lt;p&gt;
  *      subnet name
  *      flag_type; address
  *      flag_type; address
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *      .
  *      .
  *      .
- * <p>
+ * &lt;p&gt;
  * Created by martin on 15/05/17.
  */
 public class FileParser {
@@ -35,8 +35,8 @@ public class FileParser {
     /**
      * constructor instantiating the class
      *
-     * @param path file path for the file to be parsed
-     * @throws Exception IOException |
+     * &#64;param path file path for the file to be parsed
+     * &#64;throws Exception IOException |
      */
     public FileParser(String path) throws Exception {
         lines = Files.lines(Paths.get(path)).collect(Collectors.toList());
@@ -45,8 +45,8 @@ public class FileParser {
     /**
      * class capable of parsing the files cerated by the class FileWriter
      *
-     * @return IPv4Subnet
-     * @throws IOException
+     * &#64;return IPv4Subnet
+     * &#64;throws IOException
      */
     public IPv4Subnet parse() throws IOException {
         IPv4Subnet subnet = new IPv4Subnet();
@@ -71,8 +71,8 @@ public class FileParser {
     /**
      * private class capable of splitting the lines read by the file reader
      *
-     * @param t Type of entry in line
-     * @return List<String> of line, delimited by ";"
+     * &#64;param t Type of entry in line
+     * &#64;return List&lt;String&gt; of line, delimited by ";"
      */
     private List<String> getByType(Type t){
         return lines.stream()

@@ -18,10 +18,12 @@ public class ipv6SubnetUtils {
     //public static final String containsIPv4 = "^\\[?([A-Fa-f0-9:]{1,5}){1,6}([0-9\\.]{0,4}){0,4}\\]?";
 
     /**
-     * Mathod that validates an ipv6 as a String
+     * &lt;pre&gt;
+     * Method that validates an ipv6 as a String
      *
-     * @param ipv6Address string representing an ipv6 address
-     * @return true if valid, false, if invalid
+     * &#64;param ipv6Address string representing an ipv6 address
+     * &#64;return true if valid, false, if invalid
+     * &lt;/pre&gt;
      */
     public static boolean isValidIP(String ipv6Address) {
         Pattern pat = Pattern.compile(IPV_6_PATTERN);
@@ -43,6 +45,7 @@ public class ipv6SubnetUtils {
 
 
     /**
+     * &lt;pre&gt;
      * Method used to transform a String notated ipv6Address into
      * an array.
      *
@@ -54,8 +57,9 @@ public class ipv6SubnetUtils {
      * replacing several blocks of zeros with "::" can only be done once
      * the last two blocks of 16 bits can be notated in decimal notation (as ipv4)
      *
-     * @param ipv6Address the ipv6 String to be resolved into a int[]
-     * @return the ipv6 String as int[]
+     * &#64;param ipv6Address the ipv6 String to be resolved into a int[]
+     * &#64;return the ipv6 String as int[]
+     * &lt;/pre&gt;
      */
     public static int[] resolveIP(String ipv6Address) {
         if(containsIpv4(ipv6Address))
@@ -109,10 +113,12 @@ public class ipv6SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * Method able to resolve ipv6 Strings without "::"
      *
-     * @param ipv6Address the ipv6 String to be resolved into a int[]
-     * @return the ipv6 String as int[]
+     * &#64;param ipv6Address the ipv6 String to be resolved into a int[]
+     * &#64;return the ipv6 String as int[]
+     * &lt;/pre&gt;
      */
     private static int[] simpleResolving(String ipv6Address) {
         return Stream.of(ipv6Address.split(":"))
@@ -121,10 +127,12 @@ public class ipv6SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * Method able to resolve ipv6 Strings with "::"
      *
-     * @param ipv6Address the ipv6 String to be resolved into a int[]
-     * @return the ipv6 String as int[]
+     * &#64;param ipv6Address the ipv6 String to be resolved into a int[]
+     * &#64;return the ipv6 String as int[]
+     * &lt;/pre&gt;
      */
     private static int[] complexResolving(String ipv6Address) {
         //prepopulated ip address array. 0's will be replaced with actual values
@@ -166,11 +174,13 @@ public class ipv6SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * Method capable of transforming a string notation of a hexadecimal value into an integer.
-     * Also checks if the hex value is within 0 <= hex <= 65536, else throws IllegalIPv6Exeption
+     * Also checks if the hex value is within 0 &lt;= hex &lt;= 65536, else throws IllegalIPv6Exeption
      *
-     * @param hex String representing a hexadecimal value
-     * @return the decimal representation of this value
+     * &#64;param hex String representing a hexadecimal value
+     * &#64;return the decimal representation of this value
+     * &lt;/pre&gt;
      */
     public static int hexToInt(String hex) {
         int i =  Integer.valueOf(hex, 16);

@@ -29,8 +29,8 @@ public class FileWriter {
     /**
      * constructor instantiating the class
      *
-     * @param fileName String, the name of the final file
-     * @param subnet IPv4Subnet
+     * &#64;param fileName String, the name of the final file
+     * &#64;param subnet IPv4Subnet
      */
     public FileWriter (String fileName, IPv4Subnet subnet){
         this.fileName = fileName;
@@ -40,7 +40,7 @@ public class FileWriter {
     /**
      * method that writes the file
      *
-     * @throws Exception IOExeption
+     * &#64;throws Exception IOExeption
      */
     public void write() throws Exception {
         add(String.valueOf(Type.NAME), subnet.getName());

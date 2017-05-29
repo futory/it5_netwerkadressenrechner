@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * &lt;pre&gt;
  * the main frame of the gui.
  * has a JTabbedPane, that holds a JPanel, holding all the other Components
+ * &lt;/pre&gt;
  */
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame{
@@ -26,7 +28,9 @@ public class MainFrame extends JFrame{
 
 
     /**
+     * &lt;pre&gt;
      * constructor creating the frame
+     * &lt;/pre&gt;
      */
     public MainFrame() {
         setSize(new Dimension(400,450));
@@ -74,23 +78,29 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * &lt;pre&gt;
      * create a new SubnetFrame
+     * &lt;/pre&gt;
      */
     private void initSubnetFrame() {
         SubnetFrame subnetFrame = new SubnetFrame(this);
     }
 
     /**
+     * &lt;pre&gt;
      * psvm, what else to say?
-     * @param args
+     * &#64;param args
+     * &lt;/pre&gt;
      */
     public static void main(String[] args) {
         MainFrame m = new MainFrame();
     }
 
     /**
+     * &lt;pre&gt;
      * add a subnet to the content_panel, created in the SubnetFrame JFrame
-     * @param sPanel
+     * &#64;param sPanel
+     * &lt;/pre&gt;
      */
     public void addSubnet(SubnetPanel sPanel) {
         content_panel.add(new SubnetLabel(sPanel));
@@ -98,7 +108,9 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * &lt;pre&gt;
      * revalidating and repainting the content_panel
+     * &lt;/pre&gt;
      */
     private void refreshContentPanel() {
         content_panel.revalidate();
@@ -106,9 +118,11 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * &lt;pre&gt;
      * removing a child element of component_panel by object
-     * @param component
-     * @param subnetLabel
+     * &#64;param component
+     * &#64;param subnetLabel
+     * &lt;/pre&gt;
      */
     private void destroyChild(JPanel component, SubnetLabel subnetLabel) {
         component.remove(subnetLabel);
@@ -116,7 +130,9 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * &lt;pre&gt;
      * creating a TitledBorder by the specified title
+     * &lt;/pre&gt;
      */
     private TitledBorder createTitledBorder(String title) {
         return new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
@@ -124,7 +140,9 @@ public class MainFrame extends JFrame{
     }
 
     /**
+     * &lt;pre&gt;
      * private class holding a subnet in the content_panel
+     * &lt;/pre&gt;
      */
     private class SubnetLabel extends JPanel{
         private String name, subnetMask, netID;
@@ -171,8 +189,10 @@ public class MainFrame extends JFrame{
         }
 
         /**
+         * &lt;pre&gt;
          * building the label from the JTextFields
-         * @return
+         * &#64;return JLabel
+         * &lt;/pre&gt;
          */
         private JLabel buildLabel() {
             String label = "";
@@ -188,7 +208,9 @@ public class MainFrame extends JFrame{
         public String getName(){ return this.name; }
 
         /**
+         * &lt;pre&gt;
          * destroying this SubnetLabel and removing it from the content_panel
+         * &lt;/pre&gt;
          */
         private void destroy() {
             destroyChild(content_panel,this);

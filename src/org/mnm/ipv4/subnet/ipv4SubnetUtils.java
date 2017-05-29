@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ *&lt;pre&gt;
  * Created by martin on 04/05/17.
- * <p>
  * A helper class able to validate various elements of a subnet, like a host/broadcast ip, subnet mask, or a net id
+ * &lt;/pre&gt;
  */
 public class ipv4SubnetUtils {
 
@@ -28,24 +29,28 @@ public class ipv4SubnetUtils {
 
 
     /**
-     * broadcast = (id | (~mask & 255)) & 255
+     * &lt;pre&gt;
+     * broadcast = (id | (~mask &amp; 255)) &amp; 255
      * checks if the given ip is the broadcast address of the given subnet
      *
-     * @param ip     the ip in question
-     * @param subnet the subnet in question
-     * @return true if the ip is the broadcast of the subnet, false if not
+     * &#64;param ip     the ip in question
+     * &#64;param subnet the subnet in question
+     * &#64;return true if the ip is the broadcast of the subnet, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isValidBroadcast(int[] ip, IPv4Subnet subnet) {
         return Arrays.equals(subnet.getBroadcast().getIpv4Address(), ip);
     }
 
     /**
-     * broadcast = (id | (~mask & 255)) & 255
+     * &lt;pre&gt;
+     * broadcast = (id | (~mask &amp; 255)) &amp; 255
      * checks if the given ip is the broadcast address of the given subnet
      *
-     * @param ip     the ip in question
-     * @param mask   the subnetmask of the subnet in question
-     * @return true if the ip is the broadcast of the subnet, false if not
+     * &#64;param ip     the ip in question
+     * &#64;param mask   the subnetmask of the subnet in question
+     * &#64;return true if the ip is the broadcast of the subnet, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isBroadcast(int[] ip, IPv4SubnetMask mask){
         int[]negMask = negateAll(mask.getSubnetMask());
@@ -53,10 +58,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * calculating the prefix by its subnetMask
      *
-     * @param subnetMask to breate the prefix from
-     * @return int, the prefix
+     * &#64;param subnetMask to breate the prefix from
+     * &#64;return int, the prefix
+     * &lt;/pre&gt;
      */
     public static int calcPrefixByMask(int[] subnetMask) {
         if (Arrays.stream(subnetMask).allMatch(i -> i == 0))
@@ -75,9 +82,11 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * method to calculate the maximum amount of hosts of a subnet by a given prefix
-     * @param prefix prefix of a subnet
-     * @return long maximum amount of hosts of that prefix
+     * &#64;param prefix prefix of a subnet
+     * &#64;return long maximum amount of hosts of that prefix
+     * &lt;/pre&gt;
      */
     public static long calcMaxHosts(int prefix) throws FalsePrefixExeption {
         if(!isValidPrefix(prefix))
@@ -89,10 +98,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * calculated a subnetmask by a given prefix
      *
-     * @param prefix the prefix to calculate the mask by
-     * @return IPv4SubnetMask
+     * &#64;param prefix the prefix to calculate the mask by
+     * &#64;return IPv4SubnetMask
+     * &lt;/pre&gt;
      */
     public static int[] calcMaskByPrefix(int prefix) throws FalsePrefixExeption {
         if (!isValidPrefix(prefix))
@@ -110,9 +121,11 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * method to choose a subnet mask part by an integer
-     * @param i int part of the prefix
-     * @return one of 8 values, -1 if nothing was found
+     * &#64;param i int part of the prefix
+     * &#64;return one of 8 values, -1 if nothing was found
+     * &lt;/pre&gt;
      */
     private static int choose(int i) {
         switch (i) {
@@ -136,13 +149,15 @@ public class ipv4SubnetUtils {
     }
 
     /**
-     * broadcast = (id | (~mask & 255)) & 255
+     * &lt;pre&gt;
+     * broadcast = (id | (~mask &amp; 255)) &amp; 255
      * calculates the broadcast address of that given subnet.
      * the subnetMask networkID have to be set
      *
-     * @param mask the subnet mask to calculate the broadcast for
-     * @param id   the network id
-     * @return int[] the broadcast address
+     * &#64;param mask the subnet mask to calculate the broadcast for
+     * &#64;param id   the network id
+     * &#64;return int[] the broadcast address
+     * &lt;/pre&gt;
      */
     public static IPv4BroadcastAddress calcBroadcast(IPv4SubnetMask mask, IPv4NetworkID id) {
         int[] negMask = negateAll(mask.getSubnetMask());
@@ -152,12 +167,14 @@ public class ipv4SubnetUtils {
     }
 
     /**
-     * host = ((subnet.mask & ip) & 255) = subnet.id
+     * &lt;pre&gt;
+     * host = ((subnet.mask &amp; ip) &amp; 255) = subnet.id
      * checks if the ip is a host of the given subnet
      *
-     * @param ip     int[] the ip address to check
-     * @param subnet org.mnm.ipv4.subnet.IPv4Subnet the subnet in which this ip
-     * @return true if the host belongs to the subnet, false if not
+     * &#64;param ip     int[] the ip address to check
+     * &#64;param subnet org.mnm.ipv4.subnet.IPv4Subnet the subnet in which this ip
+     * &#64;return true if the host belongs to the subnet, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isHost(int[] ip, IPv4Subnet subnet) {
         if (!isValidIP(ip))
@@ -178,11 +195,13 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * checks if an ip is a valid one
      *
-     * @param ip int[] the ip in question
-     * @return true if the ip is valid
+     * &#64;param ip int[] the ip in question
+     * &#64;return true if the ip is valid
      * and false, if it is not
+     * &lt;/pre&gt;
      */
     public static boolean isValidIP(int[] ip) {
         if(ip.length > 4)
@@ -193,11 +212,13 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * checks if an ip is a valid one
      *
-     * @param ip int[] the ip in question
-     * @return true if the ip is valid
+     * &#64;param ip int[] the ip in question
+     * &#64;return true if the ip is valid
      * and false, if it is not
+     * &lt;/pre&gt;
      */
     public static boolean isValidIP(String ip) {
         return isValidIP(Arrays.stream(ip.split("\\."))
@@ -206,11 +227,13 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * helper method to get the index of a array element by a predicate. Only the first hit is returned
      *
-     * @param ip   the ip to get the element index from
-     * @param pred the predicate to check
-     * @return int the index of the first element matching the predicate
+     * &#64;param ip   the ip to get the element index from
+     * &#64;param pred the predicate to check
+     * &#64;return int the index of the first element matching the predicate
+     * &lt;/pre&gt;
      */
     private static int getIndex(int[] ip, IntPredicate pred) {
         return IntStream.range(0, 4)
@@ -221,11 +244,13 @@ public class ipv4SubnetUtils {
     }
 
     /**
-     * netID = (id & mask) & 255
+     * &lt;pre&gt;
+     * netID = (id &amp; mask) &amp; 255
      * checks if a network id is valid
      *
-     * @param ip the ip in question
-     * @return true if the valid net id of the subnet, else false
+     * &#64;param ip the ip in question
+     * &#64;return true if the valid net id of the subnet, else false
+     * &lt;/pre&gt;
      */
     public static boolean isValidNetID(int[] ip, IPv4SubnetMask mask) {
         boolean valid = false;
@@ -239,12 +264,14 @@ public class ipv4SubnetUtils {
 
 
     /**
-     * netID = (ip & mask) & 255
+     * &lt;pre&gt;
+     * netID = (ip &amp; mask) &amp; 255
      * checks if a ip is the networkID of the given subnet mask
      *
-     * @param ip   int[] the ip address to check
-     * @param mask a subnet mask to check the id against
-     * @return true if the ip is the networkID, false if not
+     * &#64;param ip   int[] the ip address to check
+     * &#64;param mask a subnet mask to check the id against
+     * &#64;return true if the ip is the networkID, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isNetID(int[] ip, IPv4SubnetMask mask) {
         return Arrays.equals(andALL(ip, mask.getSubnetMask()), ip);
@@ -252,10 +279,12 @@ public class ipv4SubnetUtils {
 
 
     /**
+     * &lt;pre&gt;
      * checks if a subnetMak is a valid one
      *
-     * @param mask the subnetMask in question
-     * @return true if it is a valid subnetMask, false if not
+     * &#64;param mask the subnetMask in question
+     * &#64;return true if it is a valid subnetMask, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isValidSubnetMask(int[] mask) {
         if(!isValidIP(mask))
@@ -270,10 +299,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * checks if a subnetMak is a valid one
      *
-     * @param mask the subnetMask in question
-     * @return true if it is a valid subnetMask, false if not
+     * &#64;param mask the subnetMask in question
+     * &#64;return true if it is a valid subnetMask, false if not
+     * &lt;/pre&gt;
      */
     public static boolean isValidSubnetMask(String mask) {
         return isValidSubnetMask(Arrays.stream(mask.split("\\."))
@@ -282,10 +313,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * returns the input array as a binary representation, delimited by comma
      *
-     * @param array to turn into binary representation
-     * @return String array as binary representation, delimited with comma
+     * &#64;param array to turn into binary representation
+     * &#64;return String array as binary representation, delimited with comma
+     * &lt;/pre&gt;
      */
     public static String toBinaryString(int[] array) {
         return Arrays.stream(array)
@@ -294,10 +327,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * negates all int values of an array
      *
-     * @param array the array to negate its values
-     * @return int[] a new array that has the negated values the input array
+     * &#64;param array the array to negate its values
+     * &#64;return int[] a new array that has the negated values the input array
+     * &lt;/pre&gt;
      */
     public static int[] negateAll(int[] array) {
         return Arrays.stream(array)
@@ -306,12 +341,14 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * does a bitwise or with all the values of the input arrays
      * arr1[i] | arr2[i]
      *
-     * @param arr1 array one to be bitwise ored
-     * @param arr2 array two to be bitwise ored
-     * @return int[] new array with the result of the bitwise or of all values
+     * &#64;param arr1 array one to be bitwise ored
+     * &#64;param arr2 array two to be bitwise ored
+     * &#64;return int[] new array with the result of the bitwise or of all values
+     * &lt;/pre&gt;
      */
     public static int[] orAll(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
@@ -322,12 +359,14 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * does a bitwise and with all the values of the input arrays
      * arr1[i] | arr2[i]
      *
-     * @param arr1 array one to be bitwise anded
-     * @param arr2 array two to be bitwise anded
-     * @return int[] new array with the result of the bitwise and of all values
+     * &#64;param arr1 array one to be bitwise anded
+     * &#64;param arr2 array two to be bitwise anded
+     * &#64;return int[] new array with the result of the bitwise and of all values
+     * &lt;/pre&gt;
      */
     public static int[] andALL(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
@@ -338,10 +377,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * calculating the prefix ba the amount of hosts
      *
-     * @param hosts long, the amount of hosts
-     * @return int, the prefix
+     * &#64;param hosts long, the amount of hosts
+     * &#64;return int, the prefix
+     * &lt;/pre&gt;
      */
     public static int calcPrefixByHosts(long hosts) {
         if (hosts == 0)
@@ -357,10 +398,12 @@ public class ipv4SubnetUtils {
     }
 
     /**
+     * &lt;pre&gt;
      * Method validating if a prefix is valid
      *
-     * @param prefix int, the prefix
-     * @return true, if prefix is valid, false, if prefix is not valid
+     * &#64;param prefix int, the prefix
+     * &#64;return true, if prefix is valid, false, if prefix is not valid
+     * &lt;/pre&gt;
      */
     public static boolean isValidPrefix(int prefix) {
         return prefix >= 0 && prefix < 33;
