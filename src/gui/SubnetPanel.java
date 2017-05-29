@@ -48,8 +48,8 @@ public class SubnetPanel extends JPanel {
 
     /**
      * constructor creating the frame
-     * @param mainFrame
-     * @param subnetFrame
+     * @param mainFrame the mainFrame
+     * @param subnetFrame the subnetFrame
      */
     public SubnetPanel(MainFrame mainFrame, SubnetFrame subnetFrame) {
         this.setBorder(new LineBorder(new Color(0, 0, 0)));

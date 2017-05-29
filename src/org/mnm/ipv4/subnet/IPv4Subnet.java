@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Programatic representation of an IPv4Subnet. Able to be build by name+prefix, of amount of hosts it has to hold
+ *
  * Created by martin on 04/05/17.
  */
 public class IPv4Subnet {
@@ -25,6 +27,10 @@ public class IPv4Subnet {
     public IPv4Subnet() {
     }
 
+    /**
+     * constructor acception an IPv4Subnet.Builder
+     * @param builder IPv4Subnet.Builder
+     */
     public IPv4Subnet(IPv4Subnet.Builder builder) {
         this.name = builder.name;
         this.subnetMask = builder.subnetMask;
@@ -41,7 +47,7 @@ public class IPv4Subnet {
         return this;
     }
 
-    public IPv4Subnet removeHost(IPv6HostAddress address){
+    public IPv4Subnet removeHost(IPv4HostAddress address){
         addressList.remove(address);
         return this;
     }
@@ -83,7 +89,9 @@ public class IPv4Subnet {
         return this;
     }
 
-
+    /**
+     * print the subnet to standard out
+     */
     public void print() {
         System.out.println(subnetMask.getClass().toString() + ": " + subnetMask.toString());
         addressList.stream()
@@ -115,6 +123,9 @@ public class IPv4Subnet {
         return this;
     }
 
+    /**
+     * private class capable of building a IPv4Subnet, either by hand, of by name or by amount of hosts
+     */
     public static class Builder {
 
         private IPv4SubnetMask subnetMask;
@@ -146,6 +157,17 @@ public class IPv4Subnet {
             return new IPv4Subnet(this);
         }
 
+        /**
+         * method able to build a subnet by name.
+         * Name notation goes as follows: networkID/prefix
+         * example: "192.168.0.0/24"
+         *
+         * validation is done within the mehtod
+         *
+         * @param name String notation of networkID/prefix("192.168.0.0/24")
+         * @return IPv4Subnet
+         * @throws SubnetBuildingError
+         */
         public IPv4Subnet buildByName(String name) throws SubnetBuildingError {
             String temp[] = name.split("/");
             int[] id = Stream.of(temp[0].split("\\.")).mapToInt(Integer::parseInt).toArray();
@@ -166,6 +188,18 @@ public class IPv4Subnet {
             return build();
         }
 
+        /**
+         * method able to build a subnet by amount of hosts.
+         * Name notation goes as follows: networkID/prefix
+         * example: "192.168.0.0/24"
+         *
+         * validation is done within the mehtod
+         *
+         * @param netID int[] notation of a networkID
+         * @param hosts long amount of hosts, that need to fit in the subnet
+         * @return IPv4Subnet
+         * @throws SubnetBuildingError
+         */
         public IPv4Subnet buildByAmountOfHosts(int[] netID, long hosts) throws SubnetBuildingError {
 
             try {

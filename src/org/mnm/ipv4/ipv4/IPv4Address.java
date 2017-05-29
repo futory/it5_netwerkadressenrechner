@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * abstract class from which all other IPv4 addresses inherit their methods and variables
+ *
  * Created by martin on 08/04/17.
  */
 public abstract class IPv4Address{
@@ -25,6 +27,12 @@ public abstract class IPv4Address{
         }
     }
 
+    /**
+     * @Override
+     *          toString
+     *
+     * @return a dotted decimal notation ot the IPv4Address
+     */
     @Override
     public String toString() {
         return Arrays.stream(ipv4Address)
@@ -32,6 +40,12 @@ public abstract class IPv4Address{
                 .collect(Collectors.joining("."));
     }
 
+    /**
+     * @Override
+     *          toString
+     *
+     * @return a dotted decimal notation ot the IPv4Address
+     */
     public String toBinaryString() {
         return Arrays.stream(ipv4Address)
                 .mapToObj(i -> ((Integer) i).toBinaryString(i))

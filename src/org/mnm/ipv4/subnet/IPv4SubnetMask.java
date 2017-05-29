@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * Programmatic representation of an Ipv4SubnetMask.
+ *
+ * Has an int[] = {0,0,0,0}
+ *
  * Created by martin on 08/04/17.
  */
 public class IPv4SubnetMask {
@@ -25,6 +29,12 @@ public class IPv4SubnetMask {
         this.prefix = builder.prefix;
     }
 
+    /**
+     * @Override
+     *          toString
+     *
+     * @return a dotted decimal notation ot the IPv4Address
+     */
     @Override
     public String toString() {
         return Arrays.stream(subnetMask)
@@ -32,6 +42,12 @@ public class IPv4SubnetMask {
                 .collect(Collectors.joining("."));
     }
 
+    /**
+     * @Override
+     *          toString
+     *
+     * @return a dotted binary notation ot the IPv4Address
+     */
     public String toBinaryString() {
         return Arrays.stream(subnetMask)
                 .mapToObj(i -> ((Integer) i).toBinaryString(i))
@@ -66,6 +82,9 @@ public class IPv4SubnetMask {
         return type;
     }
 
+    /**
+     * private class capable of building a IPv4SubnetMask, either by prefix, array or by string
+     */
     public static class Builder {
 
         private long maxHosts;
@@ -89,10 +108,22 @@ public class IPv4SubnetMask {
             return this;
         }
 
+        /**
+         * builds the IPv4SubnetMask
+         * @return IPv4SubnetMask
+         */
         public IPv4SubnetMask build() {
             return new IPv4SubnetMask(this);
         }
 
+        /**
+         * builds an IPv4SubnetMask by its prefix with validation
+         *
+         * @param prefix int, the prefix notation of the subnetMask
+         * @return IPv4SubnetMask
+         * @throws SubnetBuildingError
+         * @throws FalsePrefixExeption
+         */
         public IPv4SubnetMask buildByPrefix(int prefix) throws SubnetBuildingError, FalsePrefixExeption {
 
             if (ipv4SubnetUtils.isValidPrefix(prefix))
@@ -109,11 +140,27 @@ public class IPv4SubnetMask {
             return new IPv4SubnetMask(this);
         }
 
+        /**
+         * builds an IPv4SubnetMask by String ("255.255.255.0") with validation
+         *
+         * @param string the String notation of the SubnetMask, is validated before building
+         * @return IPv4SubnetMask
+         * @throws SubnetBuildingError
+         * @throws FalsePrefixExeption
+         */
         public IPv4SubnetMask buildByString(String string) throws SubnetBuildingError, FalsePrefixExeption {
 
             return this.buildByArray(Stream.of(string.split("\\.")).mapToInt(Integer::parseInt).toArray());
         }
 
+        /**
+         * builds an IPv4SubnetMask by int array with validation
+         *
+         * @param mask int[], the subnetMask to be build
+         * @return IPv4SubnetMask
+         * @throws SubnetBuildingError
+         * @throws FalsePrefixExeption
+         */
         public IPv4SubnetMask buildByArray(int[] mask) throws SubnetBuildingError, FalsePrefixExeption {
             this.subnetMask = mask;
             if (!ipv4SubnetUtils.isValidSubnetMask(subnetMask))

@@ -32,10 +32,22 @@ public class FileParser {
 
     List<String> lines;
 
+    /**
+     * constructor instantiating the class
+     *
+     * @param path file path for the file to be parsed
+     * @throws Exception IOException |
+     */
     public FileParser(String path) throws Exception {
         lines = Files.lines(Paths.get(path)).collect(Collectors.toList());
     }
 
+    /**
+     * class capable of parsing the files cerated by the class FileWriter
+     *
+     * @return IPv4Subnet
+     * @throws IOException
+     */
     public IPv4Subnet parse() throws IOException {
         IPv4Subnet subnet = new IPv4Subnet();
 
@@ -56,6 +68,12 @@ public class FileParser {
         return subnet;
     }
 
+    /**
+     * private class capable of splitting the lines read by the file reader
+     *
+     * @param t Type of entry in line
+     * @return List<String> of line, delimited by ";"
+     */
     private List<String> getByType(Type t){
         return lines.stream()
                .filter(l -> l.startsWith(String.valueOf(t)))

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class capable of transforming a IPv4Subnet into a textfile.
+ *
  * Created by martin on 15/05/17.
  */
 public class FileWriter {
@@ -24,11 +26,22 @@ public class FileWriter {
 
     private String fileName;
 
+    /**
+     * constructor instantiating the class
+     *
+     * @param fileName String, the name of the final file
+     * @param subnet IPv4Subnet
+     */
     public FileWriter (String fileName, IPv4Subnet subnet){
         this.fileName = fileName;
         this.subnet = subnet;
     }
 
+    /**
+     * method that writes the file
+     *
+     * @throws Exception IOExeption
+     */
     public void write() throws Exception {
         add(String.valueOf(Type.NAME), subnet.getName());
         add(String.valueOf(Type.MASK), subnet.getSubnetMask().toString());

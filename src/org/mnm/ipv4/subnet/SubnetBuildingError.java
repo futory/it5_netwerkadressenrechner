@@ -1,6 +1,9 @@
 package org.mnm.ipv4.subnet;
 
 /**
+ * Exeption extends RuntimeException
+ * throw, if an Error occured during SubnetBuilding
+ *
  * Created by martin on 09/05/17.
  */
 public class SubnetBuildingError extends Exception {

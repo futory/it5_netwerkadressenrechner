@@ -6,7 +6,10 @@ import org.mnm.ipv4.subnet.ipv4SubnetUtils;
 import java.util.stream.Stream;
 
 /**
- * Created by martin on 14/04/17.
+ * Programatic representation of an IPv4AHostAddress
+ * extends IPv4Address
+ *
+ * Created by martin on 15/04/17.
  */
 public class IPv4HostAddress extends IPv4Address {
 

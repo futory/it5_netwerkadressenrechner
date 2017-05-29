@@ -25,6 +25,9 @@ public class MainFrame extends JFrame{
     private Color textColor = new Color(51,153,255);
 
 
+    /**
+     * constructor creating the frame
+     */
     public MainFrame() {
         setSize(new Dimension(400,450));
         setLocationRelativeTo(null);

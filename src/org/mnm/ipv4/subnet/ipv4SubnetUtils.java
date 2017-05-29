@@ -52,6 +52,12 @@ public class ipv4SubnetUtils {
         return Arrays.equals(ip, orAll(negMask, ip));
     }
 
+    /**
+     * calculating the prefix by its subnetMask
+     *
+     * @param subnetMask to breate the prefix from
+     * @return int, the prefix
+     */
     public static int calcPrefixByMask(int[] subnetMask) {
         if (Arrays.stream(subnetMask).allMatch(i -> i == 0))
             return 0;
@@ -331,6 +337,12 @@ public class ipv4SubnetUtils {
         return res;
     }
 
+    /**
+     * calculating the prefix ba the amount of hosts
+     *
+     * @param hosts long, the amount of hosts
+     * @return int, the prefix
+     */
     public static int calcPrefixByHosts(long hosts) {
         if (hosts == 0)
             return 32;
@@ -344,6 +356,12 @@ public class ipv4SubnetUtils {
         return -1;
     }
 
+    /**
+     * Method validating if a prefix is valid
+     *
+     * @param prefix int, the prefix
+     * @return true, if prefix is valid, false, if prefix is not valid
+     */
     public static boolean isValidPrefix(int prefix) {
         return prefix >= 0 && prefix < 33;
     }

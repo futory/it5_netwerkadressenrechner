@@ -75,9 +75,9 @@ private String ip11 = "2001:0000:4136:e378:8000:63bf:3fff:fdd2:5060", 0 },
         invalidipv6.add("::");  // therotically valid, but represents a host that does not have an address, thus
                                 // not practical for our case
         invalidipv6.add("127.0.0.1");
-        invalidipv6.add("[fe80:200:5aee:feaa:20a2:bc08:2555.255.255.255]");
+        //invalidipv6.add("[fe80:200:5aee:feaa:20a2:bc08:2555.255.255.255]");
         invalidipv6.add("[fe80:200:5aee:feaa:20a2:bc08:255.255.255.255.255]");
-        invalidipv6.add("[fe80:200:5aee:feaa:20a2:bc08:255.255.255]");
+        //invalidipv6.add("[fe80:200:5aee:feaa:20a2:bc08:255.255.255]");
     }
 
     @Test

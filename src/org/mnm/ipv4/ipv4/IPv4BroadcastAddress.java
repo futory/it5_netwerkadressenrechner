@@ -6,6 +6,9 @@ import org.mnm.ipv4.subnet.ipv4SubnetUtils;
 import java.util.stream.Stream;
 
 /**
+ * Programatic representation of an IPv4BroadcastAddress
+ * extends IPv4Address
+ *
  * Created by martin on 15/04/17.
  */
 public class IPv4BroadcastAddress extends IPv4Address {
