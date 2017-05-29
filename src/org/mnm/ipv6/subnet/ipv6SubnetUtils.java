@@ -1,7 +1,5 @@
 package org.mnm.ipv6.subnet;
 
-import org.mnm.ipv4.subnet.ipv4SubnetUtils;
-
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

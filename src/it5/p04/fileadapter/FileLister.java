@@ -1,6 +1,5 @@
 package it5.p04.fileadapter;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

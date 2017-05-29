@@ -2,9 +2,6 @@ package org.mnm.ipv6.ipv6;
 
 import it5.p04.fileadapter.Type;
 
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 

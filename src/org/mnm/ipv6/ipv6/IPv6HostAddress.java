@@ -3,7 +3,6 @@ package org.mnm.ipv6.ipv6;
 import it5.p04.fileadapter.Type;
 import org.mnm.ipv6.subnet.ipv6SubnetUtils;
 
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**

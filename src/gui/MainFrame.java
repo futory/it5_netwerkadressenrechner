@@ -18,7 +18,7 @@ public class MainFrame extends JFrame{
     private JPanel content_panel;
     private JPanel panel_2;
     private JPanel panel_3;
-    private JPanel panel_4;
+    //private JPanel panel_4;
 
     private JButton btnAddSubnet;
 
@@ -61,10 +61,10 @@ public class MainFrame extends JFrame{
         panel_3.setBackground(Color.WHITE);
         getContentPane().add(panel_3, BorderLayout.EAST);
 
-        panel_4 = new JPanel();
-        panel_4.setBorder(createTitledBorder("Tabs"));
-        panel_4.setBackground(Color.WHITE);
-        getContentPane().add(panel_4, BorderLayout.NORTH);
+        //panel_4 = new JPanel();
+        //panel_4.setBorder(createTitledBorder("Tabs"));
+        //panel_4.setBackground(Color.WHITE);
+        //getContentPane().add(panel_4, BorderLayout.NORTH);
         setForeground(Color.WHITE);
         setBackground(Color.WHITE);
         setVisible(true);

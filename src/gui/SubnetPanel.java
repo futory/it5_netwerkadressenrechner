@@ -24,7 +24,6 @@ public class SubnetPanel extends JPanel {
 
     private JPanel panel_3;
     private JPanel panel_4;
-    private JPanel panel_6;
     private JPanel panel_2;
     private JPanel panel_1;
     private JPanel panel;
