@@ -15,13 +15,12 @@ import java.util.stream.IntStream;
  * <p>
  * A helper class able to validate various elements of a subnet, like a host/broadcast ip, subnet mask, or a net id
  */
-public class SubnetUtils {
+public class ipv4SubnetUtils {
 
     private static final int ARRAY_LENGTH = 4;
     private static final int MOD = 255;
 
     private static final IntFunction<Integer> NEGATE = i -> ~i & MOD;
-
     private static final IntBinaryOperator OR = (i, j) -> (i | j) & MOD;
     private static final IntBinaryOperator AND = (i, j) -> (i & j) & MOD;
 
@@ -36,8 +35,21 @@ public class SubnetUtils {
      * @param subnet the subnet in question
      * @return true if the ip is the broadcast of the subnet, false if not
      */
-    public static boolean isBroadcast(int[] ip, IPv4Subnet subnet) {
+    public static boolean isValidBroadcast(int[] ip, IPv4Subnet subnet) {
         return Arrays.equals(subnet.getBroadcast().getIpv4Address(), ip);
+    }
+
+    /**
+     * broadcast = (id | (~mask & 255)) & 255
+     * checks if the given ip is the broadcast address of the given subnet
+     *
+     * @param ip     the ip in question
+     * @param mask   the subnetmask of the subnet in question
+     * @return true if the ip is the broadcast of the subnet, false if not
+     */
+    public static boolean isBroadcast(int[] ip, IPv4SubnetMask mask){
+        int[]negMask = negateAll(mask.getSubnetMask());
+        return Arrays.equals(ip, orAll(negMask, ip));
     }
 
     public static int calcPrefixByMask(int[] subnetMask) {
@@ -56,14 +68,28 @@ public class SubnetUtils {
         return prefix;
     }
 
-    public static long calcMaxHosts(int prefix) {
+    /**
+     * method to calculate the maximum amount of hosts of a subnet by a given prefix
+     * @param prefix prefix of a subnet
+     * @return long maximum amount of hosts of that prefix
+     */
+    public static long calcMaxHosts(int prefix) throws FalsePrefixExeption {
+        if(!isValidPrefix(prefix))
+            throw new FalsePrefixExeption("A false prefix was detected: " + prefix);
+
         if (prefix == 32)
             return 0;
         return (long) Math.pow(2, 32 - prefix) - 2;
     }
 
-    public static int[] calcMaskByPrefix(int prefix) {
-        if (prefix > 32)
+    /**
+     * calculated a subnetmask by a given prefix
+     *
+     * @param prefix the prefix to calculate the mask by
+     * @return IPv4SubnetMask
+     */
+    public static int[] calcMaskByPrefix(int prefix) throws FalsePrefixExeption {
+        if (!isValidPrefix(prefix))
             throw new FalsePrefixExeption();
 
         int[] temp = {0, 0, 0, 0};
@@ -77,6 +103,11 @@ public class SubnetUtils {
         return temp;
     }
 
+    /**
+     * method to choose a subnet mask part by an integer
+     * @param i int part of the prefix
+     * @return one of 8 values, -1 if nothing was found
+     */
     private static int choose(int i) {
         switch (i) {
             case (128):
@@ -148,8 +179,24 @@ public class SubnetUtils {
      * and false, if it is not
      */
     public static boolean isValidIP(int[] ip) {
+        if(ip.length > 4)
+            return false;
+
         return Arrays.stream(ip)
                 .allMatch(validIP);
+    }
+
+    /**
+     * checks if an ip is a valid one
+     *
+     * @param ip int[] the ip in question
+     * @return true if the ip is valid
+     * and false, if it is not
+     */
+    public static boolean isValidIP(String ip) {
+        return isValidIP(Arrays.stream(ip.split("\\."))
+                            .mapToInt(Integer::parseInt)
+                            .toArray());
     }
 
     /**
@@ -168,7 +215,7 @@ public class SubnetUtils {
     }
 
     /**
-     * netID = (ip & mask) & 255
+     * netID = (id & mask) & 255
      * checks if a network id is valid
      *
      * @param ip the ip in question
@@ -205,12 +252,27 @@ public class SubnetUtils {
      * @return true if it is a valid subnetMask, false if not
      */
     public static boolean isValidSubnetMask(int[] mask) {
+        if(!isValidIP(mask))
+            return false;
+
         String binaryMask = toBinaryString(mask).replaceAll("\\.", "");
         int index = binaryMask.indexOf("0");
         if (index != -1)
             return !binaryMask.substring(index).contains("1");
         else
             return true;
+    }
+
+    /**
+     * checks if a subnetMak is a valid one
+     *
+     * @param mask the subnetMask in question
+     * @return true if it is a valid subnetMask, false if not
+     */
+    public static boolean isValidSubnetMask(String mask) {
+        return isValidSubnetMask(Arrays.stream(mask.split("\\."))
+                                    .mapToInt(Integer::parseInt)
+                                    .toArray());
     }
 
     /**
@@ -231,7 +293,7 @@ public class SubnetUtils {
      * @param array the array to negate its values
      * @return int[] a new array that has the negated values the input array
      */
-    private static int[] negateAll(int[] array) {
+    public static int[] negateAll(int[] array) {
         return Arrays.stream(array)
                 .map(i -> NEGATE.apply(i))
                 .toArray();
@@ -245,7 +307,7 @@ public class SubnetUtils {
      * @param arr2 array two to be bitwise ored
      * @return int[] new array with the result of the bitwise or of all values
      */
-    private static int[] orAll(int[] arr1, int[] arr2) {
+    public static int[] orAll(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
         IntStream.range(0, ARRAY_LENGTH)
                 .forEach(i -> res[i] = OR.applyAsInt(arr1[i], arr2[i]));
@@ -261,7 +323,7 @@ public class SubnetUtils {
      * @param arr2 array two to be bitwise anded
      * @return int[] new array with the result of the bitwise and of all values
      */
-    private static int[] andALL(int[] arr1, int[] arr2) {
+    public static int[] andALL(int[] arr1, int[] arr2) {
         int[] res = new int[ARRAY_LENGTH];
         IntStream.range(0, ARRAY_LENGTH)
                 .forEach(i -> res[i] = AND.applyAsInt(arr1[i], arr2[i]));
@@ -275,7 +337,7 @@ public class SubnetUtils {
         long tempHosts = 0;
         int prefix;
         for (prefix = 0; prefix < 33; prefix++) {
-            tempHosts = (long) Math.pow(2, prefix);
+            tempHosts = (long) Math.pow(2, prefix)-2;
             if (tempHosts >= hosts)
                 return 32 - prefix;
         }

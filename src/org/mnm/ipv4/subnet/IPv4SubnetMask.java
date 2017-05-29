@@ -1,5 +1,7 @@
 package org.mnm.ipv4.subnet;
 
+import it5.p04.fileadapter.Type;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,6 +10,8 @@ import java.util.stream.Stream;
  * Created by martin on 08/04/17.
  */
 public class IPv4SubnetMask {
+
+    private Type type = Type.MASK;
 
     public static final long MAXIMUM_AMOUNT_OF_HOSTS = 4294967294L;
 
@@ -58,6 +62,10 @@ public class IPv4SubnetMask {
         this.prefix = prefix;
     }
 
+    public Type getType(){
+        return type;
+    }
+
     public static class Builder {
 
         private long maxHosts;
@@ -85,34 +93,34 @@ public class IPv4SubnetMask {
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByPrefix(int prefix) {
+        public IPv4SubnetMask buildByPrefix(int prefix) throws SubnetBuildingError, FalsePrefixExeption {
 
-            if (SubnetUtils.isValidPrefix(prefix))
+            if (ipv4SubnetUtils.isValidPrefix(prefix))
                 this.prefix = prefix;
             else
                 throw new SubnetBuildingError("A false prefix was detected: " + prefix);
 
-            subnetMask = SubnetUtils.calcMaskByPrefix(prefix);
-            if (!SubnetUtils.isValidSubnetMask(subnetMask))
+            subnetMask = ipv4SubnetUtils.calcMaskByPrefix(prefix);
+            if (!ipv4SubnetUtils.isValidSubnetMask(subnetMask))
                 throw new SubnetBuildingError("A false subnet mask was detected: " + subnetMask.toString());
 
-            this.maxHosts = SubnetUtils.calcMaxHosts(prefix);
+            this.maxHosts = ipv4SubnetUtils.calcMaxHosts(prefix);
 
             return new IPv4SubnetMask(this);
         }
 
-        public IPv4SubnetMask buildByString(String string) {
+        public IPv4SubnetMask buildByString(String string) throws SubnetBuildingError, FalsePrefixExeption {
 
             return this.buildByArray(Stream.of(string.split("\\.")).mapToInt(Integer::parseInt).toArray());
         }
 
-        public IPv4SubnetMask buildByArray(int[] mask) {
+        public IPv4SubnetMask buildByArray(int[] mask) throws SubnetBuildingError, FalsePrefixExeption {
             this.subnetMask = mask;
-            if (!SubnetUtils.isValidSubnetMask(subnetMask))
+            if (!ipv4SubnetUtils.isValidSubnetMask(subnetMask))
                 throw new SubnetBuildingError("A false subnet mask was detected: " + subnetMask.toString());
 
-            this.prefix = SubnetUtils.calcPrefixByMask(this.subnetMask);
-            this.maxHosts = SubnetUtils.calcMaxHosts(this.prefix);
+            this.prefix = ipv4SubnetUtils.calcPrefixByMask(this.subnetMask);
+            this.maxHosts = ipv4SubnetUtils.calcMaxHosts(this.prefix);
 
             return new IPv4SubnetMask(this);
         }
