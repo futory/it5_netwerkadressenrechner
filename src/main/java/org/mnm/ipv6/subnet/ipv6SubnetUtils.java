@@ -1,6 +1,7 @@
 package org.mnm.ipv6.subnet;
 
-import java.net.*;
+import org.apache.http.conn.util.InetAddressUtils;
+
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,13 +27,19 @@ public class ipv6SubnetUtils {
      * &#64;return true if valid, false, if invalid
      * &lt;/pre&gt;
      */
-    public static boolean isValidIP(String ipv6Address) {
-        Pattern pat = Pattern.compile(IPV_6_PATTERN);
-        if(pat.matcher(ipv6Address.toLowerCase()).matches())
-            if(countCharSeq(ipv6Address, "::") < 2)
-                return true;
-        return false;
+//    public static boolean isValidIP(String ipv6Address) {
+//        Pattern pat = Pattern.compile(IPV_6_PATTERN);
+//        if(pat.matcher(ipv6Address.toLowerCase()).matches())
+//            if(countCharSeq(ipv6Address, "::") < 2)
+//                return true;
+//        return false;
+//    }
+
+    public static boolean isValidIP(String ip) {
+        return InetAddressUtils.isIPv6Address(ip);
     }
+
+
 
 
     private static int countCharSeq(String ipv6Address, String seq) {
