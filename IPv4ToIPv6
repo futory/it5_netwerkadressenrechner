@@ -1,0 +1,28 @@
+import java.util.Scanner;
+class IPcalc
+{
+    public static void main(String args[])
+    {
+
+    	
+      Scanner input = new Scanner( System.in );
+      System.out.print("Enter an IPv4 address : ");
+      
+      String num =input.next();
+      
+      String[] split = num.split("\\.");
+      String[] result;
+      result = new String[4];
+      // calling method toHexString()     
+      for(int i = 0; i < split.length; i++) {
+          result[i] = Integer.toHexString(Integer.parseInt(split[i]));
+      }
+      if(result[1].length()<2){
+    	  result[1] = "0" + result[1];
+      }
+      if(result[3].length()<2){
+    	  result[3] = "0" + result[3];
+      }
+      System.out.println("IPv6: 2002:0:0:0:0:0:"+result[0]+ result[1] + ":" + result[2]+ result[3]);
+    }
+}
