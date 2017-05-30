@@ -1,9 +1,12 @@
 package org.mnm.ipv4.subnet;
 
 import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
+import org.mnm.ipv4.ipv4.IPv4HostAddress;
 import org.mnm.ipv4.ipv4.IPv4NetworkID;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
@@ -395,6 +398,27 @@ public class ipv4SubnetUtils {
                 return 32 - prefix;
         }
         return -1;
+    }
+
+    public static List<IPv4HostAddress> getAllHosts(IPv4Subnet subnet) {
+        int[] id = subnet.getNetID().getIpv4Address();
+        int[] broad = subnet.getBroadcast().getIpv4Address();
+
+        List<IPv4HostAddress> iPv4HostAddresses = new ArrayList<>();
+
+        return null;
+    }
+
+    public static IPv4HostAddress calcMaxHost(IPv4BroadcastAddress broadcastAddress){
+            int[] h = broadcastAddress.getIpv4Address();
+            h[3] = h[3]-1;
+            return new IPv4HostAddress(h);
+    }
+
+    public static IPv4HostAddress calcMinHost(IPv4NetworkID iPv4NetworkID){
+        int[] h = iPv4NetworkID.getIpv4Address();
+        h[3] = h[3]+1;
+        return new IPv4HostAddress(h);
     }
 
     /**
