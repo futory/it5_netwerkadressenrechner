@@ -44,7 +44,12 @@ class ipv4SubnetUtilsTest {
     }
 
     @Test
-    void getAllHosts() {
+    void getAllHosts() throws SubnetBuildingError {
+        IPv4Subnet s1, s2,s3,s4,s5;
+        s1 = new IPv4Subnet.Builder().buildByName("192.168.0.0/24");
+
+        List<IPv4HostAddress> list = ipv4SubnetUtils.getAllHosts(s1);
+        list.stream().forEach(System.out::println);
     }
 
     @Test
