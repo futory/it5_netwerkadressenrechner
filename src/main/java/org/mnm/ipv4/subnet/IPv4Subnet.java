@@ -29,8 +29,7 @@ public class IPv4Subnet {
 
     private String name;
 
-    public IPv4Subnet() {
-    }
+    public IPv4Subnet() {}
 
     /**
      * &lt;pre&gt;
@@ -39,12 +38,12 @@ public class IPv4Subnet {
      * &lt;/pre&gt;
      */
     public IPv4Subnet(IPv4Subnet.Builder builder) {
-        this.name = builder.name;
-        this.subnetMask = builder.subnetMask;
-        this.broadcastAddress = builder.broadcastAddress;
-        this.networkID = builder.networkID;
-        this.minHost = builder.minHost;
-        this.maxHost = builder.maxHost;
+        this.setName(builder.name)
+            .setSubnetMask(builder.subnetMask)
+            .setBroadcastAddress(broadcastAddress)
+            .setNetworkID(builder.networkID)
+            .setMinHost(builder.minHost)
+            .setMaxHost(builder.maxHost);
     }
 
     public IPv4Subnet addHost(IPv4HostAddress address) throws SubnetBuildingError {
