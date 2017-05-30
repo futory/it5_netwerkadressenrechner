@@ -13,8 +13,10 @@ public class SubnetFrame extends JFrame {
     private MainFrame mainFrame;
 
     /**
+     * &lt;pre&gt;
      * constructor creating the frame
-     * @param mainFrame
+     * &#64;param mainFrame
+     * &lt;/pre&gt;
      */
     public SubnetFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -37,7 +39,9 @@ public class SubnetFrame extends JFrame {
     }
 
     /**
+     * &lt;pre&gt;
      * method used to dispose the frame on button presses
+     * &lt;/pre&gt;
      */
     public void closeFrame() {
         this.dispose();

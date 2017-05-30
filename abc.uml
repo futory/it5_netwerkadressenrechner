@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="40.0" y="1184.0">org.mnm.ipv4.ipv4.IPv4HostAddress</node>
+    <node x="0.0" y="2517.0">gui.SubnetPanel</node>
+    <node x="1146.7895161290326" y="0.0">it5.p04.fileadapter.Type</node>
+    <node x="195.7916666666666" y="1983.0">gui.MainFrame</node>
+    <node x="316.0" y="622.5">org.mnm.ipv4.subnet.FalsePrefixExeption</node>
+    <node x="629.0266129032257" y="1710.0">it5.p04.fileadapter.FileParser</node>
+    <node x="1668.2704301075269" y="622.5">org.mnm.ipv4.subnet.SubnetBuildingError</node>
+    <node x="1543.3184139784944" y="1653.0">org.mnm.ipv4.subnet.IPv4Subnet.Builder</node>
+    <node x="1042.1895161290324" y="977.0">org.mnm.ipv4.subnet.IPv4Subnet</node>
+    <node x="1950.0204301075269" y="1115.5">org.mnm.ipv4.subnet.IPv4SubnetMask.Builder</node>
+    <node x="1275.0395161290326" y="598.5">org.mnm.ipv4.ipv4.IPv4NetworkID</node>
+    <node x="10.5" y="622.5">org.mnm.ipv4.ipv4.FalseIPExeption</node>
+    <node x="914.0" y="1983.0">it5.p04.fileadapter.FileLister</node>
+    <node x="240.99999999999994" y="2365.0">gui.SubnetFrame</node>
+    <node x="897.2520161290324" y="598.5">org.mnm.ipv4.ipv4.IPv4BroadcastAddress</node>
+    <node x="1957.2704301075269" y="472.0">org.mnm.ipv4.subnet.IPv4SubnetMask</node>
+    <node x="1082.0266129032257" y="1675.5">it5.p04.fileadapter.FileWriter</node>
+    <node x="1065.7895161290326" y="196.0">org.mnm.ipv4.ipv4.IPv4Address</node>
+    <node x="1120.0" y="1983.0">it5.p04.fileadapter.FileDeleter</node>
+    <node x="1326.0" y="1983.0">org.mnm.ipv4.subnet.TooManyHostsExeption</node>
+    <node x="252.0" y="920.0">org.mnm.ipv4.subnet.ipv4SubnetUtils</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.ipv4.IPv4NetworkID">
+      <point x="-28.5" y="-142.5" />
+      <point x="1742.8184139784944" y="1633.0" />
+      <point x="1741.6895161290324" y="1633.0" />
+      <point x="1741.6895161290324" y="880.0" />
+      <point x="1409.4395161290327" y="880.0" />
+      <point x="38.40000000000009" y="62.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.subnet.IPv4SubnetMask.Builder">
+      <point x="142.5" y="-142.5" />
+      <point x="1913.8184139784944" y="1623.0" />
+      <point x="2123.020430107527" y="1623.0" />
+      <point x="0.0" y="131.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4SubnetMask" target="it5.p04.fileadapter.Type">
+      <point x="0.0" y="-189.0" />
+      <point x="2163.270430107527" y="166.0" />
+      <point x="1287.1895161290327" y="166.0" />
+      <point x="62.40000000000009" y="73.0" />
+    </edge>
+    <edge source="it5.p04.fileadapter.FileParser" target="org.mnm.ipv4.ipv4.IPv4NetworkID">
+      <point x="36.083333333333485" y="-85.5" />
+      <point x="881.6099462365592" y="1613.0" />
+      <point x="1004.7520161290324" y="1613.0" />
+      <point x="1004.7520161290324" y="890.0" />
+      <point x="1294.2395161290324" y="890.0" />
+      <point x="-76.79999999999995" y="62.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.ipv4SubnetUtils" target="org.mnm.ipv4.ipv4.IPv4BroadcastAddress">
+      <point x="177.5" y="-326.5" />
+      <point x="784.5" y="900.0" />
+      <point x="916.5520161290324" y="900.0" />
+      <point x="-77.20000000000005" y="62.5" />
+    </edge>
+    <edge source="gui.SubnetPanel" target="gui.SubnetFrame">
+      <point x="-289.66666666666674" y="-407.5" />
+      <point x="144.83333333333326" y="2492.0" />
+      <point x="305.49999999999994" y="2492.0" />
+      <point x="-64.5" y="51.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.subnet.SubnetBuildingError">
+      <point x="85.5" y="-142.5" />
+      <point x="1856.8184139784944" y="1623.0" />
+      <point x="1802.7704301075269" y="1623.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet" target="org.mnm.ipv4.subnet.IPv4SubnetMask">
+      <point x="275.5999999999999" y="-269.5" />
+      <point x="1662.2895161290323" y="900.0" />
+      <point x="2008.7704301075269" y="900.0" />
+      <point x="-154.5" y="189.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4SubnetMask.Builder" target="org.mnm.ipv4.subnet.SubnetBuildingError">
+      <point x="-115.33333333333326" y="-131.0" />
+      <point x="2007.6870967741934" y="890.0" />
+      <point x="1892.4370967741934" y="890.0" />
+      <point x="89.66666666666674" y="38.5" />
+    </edge>
+    <edge source="gui.SubnetPanel" target="gui.MainFrame">
+      <point x="289.66666666666674" y="-407.5" />
+      <point x="724.1666666666667" y="2492.0" />
+      <point x="509.49999999999994" y="2492.0" />
+      <point x="509.49999999999994" y="2340.0" />
+      <point x="559.125" y="2340.0" />
+      <point x="145.33333333333337" y="166.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4NetworkID" target="it5.p04.fileadapter.Type">
+      <point x="48.0" y="-62.5" />
+      <point x="1419.0395161290326" y="176.0" />
+      <point x="1255.9895161290324" y="176.0" />
+      <point x="31.200000000000045" y="73.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.subnet.IPv4Subnet">
+      <point x="-85.5" y="-142.5" />
+      <point x="1685.8184139784944" y="1633.0" />
+      <point x="1645.0645161290324" y="1633.0" />
+      <point x="258.375" y="269.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4BroadcastAddress" target="org.mnm.ipv4.ipv4.IPv4Address">
+      <point x="48.25" y="-62.5" />
+      <point x="1042.0020161290324" y="452.0" />
+      <point x="1185.0395161290326" y="452.0" />
+      <point x="-39.75" y="108.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4Address" target="it5.p04.fileadapter.Type">
+      <point x="0.0" y="-108.0" />
+      <point x="0.0" y="73.0" />
+    </edge>
+    <edge source="it5.p04.fileadapter.FileParser" target="org.mnm.ipv4.ipv4.IPv4BroadcastAddress">
+      <point x="-36.083333333333144" y="-85.5" />
+      <point x="809.4432795698925" y="1603.0" />
+      <point x="983.5" y="1603.0" />
+      <point x="983.5" y="900.0" />
+      <point x="993.7520161290324" y="900.0" />
+      <point x="0.0" y="62.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4SubnetMask.Builder" target="org.mnm.ipv4.subnet.IPv4SubnetMask">
+      <point x="115.33333333333348" y="-131.0" />
+      <point x="2238.3537634408603" y="900.0" />
+      <point x="2214.7704301075264" y="900.0" />
+      <point x="51.5" y="189.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet" target="org.mnm.ipv4.subnet.SubnetBuildingError">
+      <point x="137.79999999999995" y="-269.5" />
+      <point x="1524.4895161290324" y="890.0" />
+      <point x="1713.10376344086" y="890.0" />
+      <point x="-89.66666666666674" y="38.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.subnet.IPv4SubnetMask">
+      <point x="199.5" y="-142.5" />
+      <point x="1970.8184139784944" y="1633.0" />
+      <point x="2306.5204301075264" y="1633.0" />
+      <point x="2306.5204301075264" y="900.0" />
+      <point x="2317.7704301075264" y="900.0" />
+      <point x="154.4999999999999" y="189.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4HostAddress" target="it5.p04.fileadapter.Type">
+      <point x="-64.0" y="-62.5" />
+      <point x="72.0" y="900.0" />
+      <point x="0.0" y="900.0" />
+      <point x="0.0" y="166.0" />
+      <point x="1162.3895161290325" y="166.0" />
+      <point x="-62.40000000000009" y="73.0" />
+    </edge>
+    <edge source="gui.MainFrame" target="gui.SubnetFrame">
+      <point x="0.0" y="166.0" />
+      <point x="413.79166666666663" y="2340.0" />
+      <point x="434.49999999999994" y="2340.0" />
+      <point x="64.5" y="-51.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet" target="org.mnm.ipv4.ipv4.IPv4Address">
+      <point x="-137.79999999999995" y="-269.5" />
+      <point x="1248.8895161290325" y="880.0" />
+      <point x="1264.5395161290326" y="880.0" />
+      <point x="39.75" y="108.0" />
+    </edge>
+    <edge source="it5.p04.fileadapter.FileWriter" target="org.mnm.ipv4.subnet.IPv4Subnet">
+      <point x="0.0" y="-120.0" />
+      <point x="1232.5266129032257" y="1633.0" />
+      <point x="1300.5645161290324" y="1633.0" />
+      <point x="-86.125" y="269.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4HostAddress" target="org.mnm.ipv4.ipv4.IPv4Address">
+      <point x="64.0" y="-62.5" />
+      <point x="200.0" y="900.0" />
+      <point x="224.0" y="900.0" />
+      <point x="224.0" y="442.0" />
+      <point x="1105.5395161290326" y="442.0" />
+      <point x="-119.25" y="108.0" />
+    </edge>
+    <edge source="it5.p04.fileadapter.FileParser" target="org.mnm.ipv4.ipv4.IPv4HostAddress">
+      <point x="-180.41666666666663" y="-85.5" />
+      <point x="665.109946236559" y="1633.0" />
+      <point x="136.0" y="1633.0" />
+      <point x="0.0" y="62.5" />
+    </edge>
+    <edge source="gui.SubnetFrame" target="gui.SubnetPanel">
+      <point x="64.5" y="51.0" />
+      <point x="-5.6843418860808015E-14" y="-407.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet" target="org.mnm.ipv4.ipv4.IPv4NetworkID">
+      <point x="0.0" y="-269.5" />
+      <point x="1386.6895161290324" y="900.0" />
+      <point x="1371.0395161290326" y="900.0" />
+      <point x="0.0" y="62.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4BroadcastAddress" target="it5.p04.fileadapter.Type">
+      <point x="-48.25" y="-62.5" />
+      <point x="945.5020161290324" y="432.0" />
+      <point x="869.1641129032257" y="432.0" />
+      <point x="869.1641129032257" y="176.0" />
+      <point x="1193.5895161290323" y="176.0" />
+      <point x="-31.200000000000045" y="73.0" />
+    </edge>
+    <edge source="it5.p04.fileadapter.FileParser" target="org.mnm.ipv4.subnet.IPv4Subnet">
+      <point x="180.41666666666686" y="-85.5" />
+      <point x="1025.9432795698926" y="1633.0" />
+      <point x="1128.3145161290324" y="1633.0" />
+      <point x="-258.375" y="269.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet" target="org.mnm.ipv4.ipv4.IPv4BroadcastAddress">
+      <point x="-275.5999999999999" y="-269.5" />
+      <point x="1111.0895161290325" y="880.0" />
+      <point x="1070.9520161290325" y="880.0" />
+      <point x="77.20000000000005" y="62.5" />
+    </edge>
+    <edge source="gui.SubnetFrame" target="gui.MainFrame">
+      <point x="-64.5" y="-51.0" />
+      <point x="305.49999999999994" y="2340.0" />
+      <point x="268.45833333333326" y="2340.0" />
+      <point x="-145.33333333333334" y="166.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.IPv4Subnet.Builder" target="org.mnm.ipv4.ipv4.IPv4BroadcastAddress">
+      <point x="-199.5" y="-142.5" />
+      <point x="1571.8184139784944" y="1613.0" />
+      <point x="1015.7520161290324" y="1613.0" />
+      <point x="1015.7520161290324" y="880.0" />
+      <point x="1032.3520161290323" y="880.0" />
+      <point x="38.59999999999991" y="62.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4NetworkID" target="org.mnm.ipv4.ipv4.IPv4Address">
+      <point x="-48.0" y="-62.5" />
+      <point x="1323.0395161290326" y="452.0" />
+      <point x="1344.0395161290326" y="452.0" />
+      <point x="119.25" y="108.0" />
+    </edge>
+    <edge source="org.mnm.ipv4.ipv4.IPv4HostAddress" target="org.mnm.ipv4.ipv4.FalseIPExeption">
+      <point x="0.0" y="-62.5" />
+      <point x="136.0" y="900.0" />
+      <point x="112.0" y="900.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="org.mnm.ipv4.subnet.ipv4SubnetUtils" target="org.mnm.ipv4.subnet.FalsePrefixExeption">
+      <point x="-177.5" y="-326.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.4" x="763.636363636364" y="1103.893939393939" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

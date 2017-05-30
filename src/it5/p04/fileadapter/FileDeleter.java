@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * TO BE CREATED
+ * A class capable of deleting a file by its specified path
  *
  * Created by martin on 16/05/17.
  */
@@ -13,6 +13,11 @@ public class FileDeleter {
 
     private static final String path = "resources/out/";
 
+    /**
+     * A method capable of deleting a file by its specified fully qualified path
+     *
+     * &#64;param fileName the file name, that will be added to the final path
+     */
     public void delete(String fileName){
         try {
             Files.delete(Paths.get(path + fileName));

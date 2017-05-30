@@ -9,12 +9,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * A class capable of listing files in a directory
+ *
  * Created by martin on 16/05/17.
  */
 public class FileLister {
 
     private static final String path = "resources/out/";
 
+    /**
+     * listing the files in the directory that is specified in the final path="resources/out/"
+     *
+     * &#64;return List&lt;Path&gt; listFileNames
+     */
     public List<Path> listFileNames(){
         List<Path> files = new ArrayList<>();
 
