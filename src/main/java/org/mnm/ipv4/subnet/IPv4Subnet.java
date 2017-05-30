@@ -4,7 +4,6 @@ import org.mnm.ipv4.ipv4.IPv4Address;
 import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
 import org.mnm.ipv4.ipv4.IPv4HostAddress;
 import org.mnm.ipv4.ipv4.IPv4NetworkID;
-import org.mnm.ipv6.ipv6.IPv6HostAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,8 @@ import java.util.stream.Stream;
 public class IPv4Subnet {
 
     private List<IPv4Address> addressList = new ArrayList<>();
+    private List<IPv4HostAddress> hostAddresses = new ArrayList<>();
+
     private IPv4SubnetMask subnetMask;
     private IPv4BroadcastAddress broadcastAddress;
     private IPv4NetworkID networkID;
@@ -47,9 +48,10 @@ public class IPv4Subnet {
     }
 
     public IPv4Subnet addHost(IPv4HostAddress address) throws SubnetBuildingError {
-        if(ipv4SubnetUtils.isHost(address.getIpv4Address(), this))
+        if(ipv4SubnetUtils.isHost(address.getIpv4Address(), this)) {
             this.addressList.add(address);
-        else
+            this.hostAddresses.add(address);
+        }else
             throw new SubnetBuildingError("Invalid host address: " + address);
 
         return this;
@@ -133,6 +135,24 @@ public class IPv4Subnet {
         return this;
     }
 
+    public IPv4HostAddress getMinHost() {
+        return minHost;
+    }
+
+    public IPv4Subnet setMinHost(IPv4HostAddress minHost) {
+        this.minHost = minHost;
+        return this;
+    }
+
+    public IPv4HostAddress getMaxHost() {
+        return maxHost;
+    }
+
+    public IPv4Subnet setMaxHost(IPv4HostAddress maxHost) {
+        this.maxHost = maxHost;
+        return this;
+    }
+
     /**
      * &lt;pre&gt;
      * private class capable of building a IPv4Subnet, either by hand, of by name or by amount of hosts
@@ -207,9 +227,12 @@ public class IPv4Subnet {
             }
 
             if (!ipv4SubnetUtils.isValidNetID(id, subnetMask))
-                throw new SubnetBuildingError("An invalid netID was detected: " + this.networkID.toString());
+                throw new SubnetBuildingError("An invalid netID was detected: " + this.networkID);
 
             this.broadcastAddress = ipv4SubnetUtils.calcBroadcast(subnetMask, networkID);
+
+            this.maxHost = ipv4SubnetUtils.calcMaxHost(this.broadcastAddress);
+            this.minHost = ipv4SubnetUtils.calcMinHost(this.networkID);
 
             return build();
         }

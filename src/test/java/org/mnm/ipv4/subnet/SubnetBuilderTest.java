@@ -26,13 +26,9 @@ class SubnetBuilderTest {
 
 
     @BeforeEach
-    public void setUp(){
-        try {
+    public void setUp() throws SubnetBuildingError {
             setUpByName();
             setUpByAmountOfHosts();
-        } catch (SubnetBuildingError subnetBuildingError) {
-            subnetBuildingError.printStackTrace();
-        }
     }
 
     private void setUpByAmountOfHosts() throws SubnetBuildingError {

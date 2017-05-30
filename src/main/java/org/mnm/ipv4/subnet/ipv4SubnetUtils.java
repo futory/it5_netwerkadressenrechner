@@ -401,12 +401,20 @@ public class ipv4SubnetUtils {
     }
 
     public static List<IPv4HostAddress> getAllHosts(IPv4Subnet subnet) {
-        int[] id = subnet.getNetID().getIpv4Address();
-        int[] broad = subnet.getBroadcast().getIpv4Address();
+        int [] first = subnet.getMinHost().getIpv4Address();
+        int [] last = subnet.getMaxHost().getIpv4Address();
+        int [] tempHost = first;
+        int index = 3;
+        List<IPv4HostAddress> hostAddressList = new ArrayList<>();
+        long amountHosts = subnet.getSubnetMask().getMaxHosts();
 
-        List<IPv4HostAddress> iPv4HostAddresses = new ArrayList<>();
-
-        return null;
+        for(long l = 0; l < amountHosts; l++){
+            tempHost[index] += 1;
+            hostAddressList.add(new IPv4HostAddress(tempHost));
+            if(Arrays.equals(tempHost, last))
+                return hostAddressList;
+        }
+        return hostAddressList;
     }
 
     public static IPv4HostAddress calcMaxHost(IPv4BroadcastAddress broadcastAddress){
