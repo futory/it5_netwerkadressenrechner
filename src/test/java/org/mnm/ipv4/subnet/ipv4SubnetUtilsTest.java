@@ -1,5 +1,6 @@
 package org.mnm.ipv4.subnet;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mnm.ipv4.ipv4.IPv4BroadcastAddress;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by martin on 06/05/17.
  */
 class ipv4SubnetUtilsTest {
+
     @Test
     void calcMinHost() throws SubnetBuildingError {
         IPv4Subnet s1, s2,s3,s4,s5;
