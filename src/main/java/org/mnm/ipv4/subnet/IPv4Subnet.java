@@ -24,6 +24,8 @@ public class IPv4Subnet {
     private IPv4BroadcastAddress broadcastAddress;
     private IPv4NetworkID networkID;
 
+    private IPv4HostAddress minHost, maxHost;
+
     private String name;
 
     public IPv4Subnet() {
@@ -31,7 +33,7 @@ public class IPv4Subnet {
 
     /**
      * &lt;pre&gt;
-     * constructor acception an IPv4Subnet.Builder
+     * constructor accepting an IPv4Subnet.Builder
      * &#64;param builder IPv4Subnet.Builder
      * &lt;/pre&gt;
      */
@@ -40,6 +42,8 @@ public class IPv4Subnet {
         this.subnetMask = builder.subnetMask;
         this.broadcastAddress = builder.broadcastAddress;
         this.networkID = builder.networkID;
+        this.minHost = builder.minHost;
+        this.maxHost = builder.maxHost;
     }
 
     public IPv4Subnet addHost(IPv4HostAddress address) throws SubnetBuildingError {
@@ -140,6 +144,18 @@ public class IPv4Subnet {
         private IPv4BroadcastAddress broadcastAddress;
         private IPv4NetworkID networkID;
         private String name;
+        private IPv4HostAddress minHost;
+        private IPv4HostAddress maxHost;
+
+        public IPv4Subnet.Builder minHost(IPv4HostAddress minHost) {
+            this.minHost = minHost;
+            return this;
+        }
+
+        public IPv4Subnet.Builder maxHost(IPv4HostAddress maxHost) {
+            this.maxHost = maxHost;
+            return this;
+        }
 
         public IPv4Subnet.Builder subnetMask(IPv4SubnetMask subnetMask) {
             this.subnetMask = subnetMask;
@@ -201,8 +217,6 @@ public class IPv4Subnet {
         /**
          * &lt;pre&gt;
          * method able to build a subnet by amount of hosts.
-         * Name notation goes as follows: networkID/prefix
-         * example: "192.168.0.0/24"
          *
          * validation is done within the mehtod
          *
