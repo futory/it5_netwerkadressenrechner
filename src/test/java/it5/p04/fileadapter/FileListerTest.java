@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Created by martin on 16/05/17.
  */

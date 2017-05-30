@@ -1,5 +1,6 @@
 package org.mnm.ipv6.ipv6;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
