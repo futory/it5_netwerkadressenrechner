@@ -9,12 +9,8 @@ import org.mnm.ipv4.subnet.IPv4Subnet;
 import org.mnm.ipv4.subnet.IPv4SubnetMask;
 import org.mnm.ipv4.subnet.SubnetBuildingError;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by martin on 16/05/17.
